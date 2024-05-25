@@ -1210,9 +1210,12 @@ class Factura(LoginRequiredMixin,View):
         contenedor_id = kwargs.get('pk')
         contenedor = Contenedor.objects.get(pk=contenedor_id)
         nombre_factura = f"Factura_{contenedor.factura}_{contenedor.cliente}.pdf"
-
-        logo_url = request.build_absolute_uri(contenedor.empresa.logo_empresa.url)
-        firma_url = request.build_absolute_uri(contenedor.empresa.firma_empresa.url)
+        
+        domain = settings.SITE_DOMAIN
+        http = settings.HTTPS
+        logo_url = f"{http}://{domain}{contenedor.empresa.logo_empresa.url}"
+        firma_url = f"{http}://{domain}{contenedor.empresa.firma_empresa.url}"
+        
         productos_contenedor = []
         total_bultos = 0
         total_bruto = 0
@@ -1273,6 +1276,11 @@ class Declaracion(LoginRequiredMixin,View):
         nombre_declaracion = f"Declaración jurada_{contenedor.factura}_{contenedor.cliente}.pdf"
         logo_url = request.build_absolute_uri(contenedor.empresa.logo_empresa.url)
         firma_url = request.build_absolute_uri(contenedor.empresa.firma_empresa.url)
+        
+        domain = settings.SITE_DOMAIN
+        http = settings.HTTPS
+        logo_url = f"{http}://{domain}{contenedor.empresa.logo_empresa.url}"
+        firma_url = f"{http}://{domain}{contenedor.empresa.firma_empresa.url}"
         
         total_importe = sum(item.cantidad * item.precio for item in contenedor.items.all())
         total_general = total_importe + contenedor.flete + contenedor.seguro
