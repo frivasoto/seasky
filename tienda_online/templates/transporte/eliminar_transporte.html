@@ -1,0 +1,20 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+            <h2 class="card-title mb-0 text-white">Eliminar</h2>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'eliminar_transporte' object.id %}" method="post">
+            {% csrf_token %}
+            <div class="modal-body">
+                <h4>¿Desea eliminar el transporte?</h4>
+                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-danger" type="submit">Confirmar</button>
+            </div>
+        </form>
+        
+    </div>
+</div>

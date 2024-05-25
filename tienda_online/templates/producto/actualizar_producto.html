@@ -1,0 +1,44 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+            <h2 class="card-title mb-0 text-white">Editar producto de referencia: {{ object.referencia }}  </h2>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'actualizar_producto' object.id %}" method="post" enctype="multipart/form-data" class="m-4">
+            {% csrf_token %}
+            <div class="row">
+                <div class="mb-12">
+                    <label for="id_descripcion" class="form-label">Descripción del Producto</label>
+                    {{ form.descripcion }}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_partida_arancelaria" class="form-label">Partida Arancelaria</label>
+                    {{ form.partida_arancelaria }} 
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="id_unidad_medida" class="form-label">Unidad de Medida</label>
+                    {{ form.unidad_medida }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_peso_neto" class="form-label">Peso Neto</label>
+                    {{ form.peso_neto }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="id_peso_bruto" class="form-label">Peso Bruto</label>
+                    {{ form.peso_bruto }}
+                </div>
+            </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-success" type="submit">Confirmar</button>
+        </div>
+        </form>
+        
+    </div>
+</div>
+    

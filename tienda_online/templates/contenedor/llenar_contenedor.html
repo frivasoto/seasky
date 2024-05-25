@@ -1,0 +1,362 @@
+{% extends 'base.html' %}
+
+{% block tittle %}
+  Detalles del Contenedor
+{% endblock %}
+
+{% block content %}
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 col-xl-3">
+          <div class="widget-rounded-circle card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6">
+                  <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                    <i class="fe-shopping-cart font-22 avatar-title text-success"></i>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="text-end">
+                    <h3 class="text-dark mt-1"><span data-plugin="counterup">{{total_bruto}}</span> kg</h3>
+                    <p class="text-muted mb-1 text-truncate">Peso Bruto Total</p>
+                  </div>
+                </div>
+              </div> <!-- end row -->
+            </div>
+          </div> <!-- end widget-rounded-circle -->
+        </div> <!-- end col -->
+
+        <div class="col-md-6 col-xl-3">
+          <div class="widget-rounded-circle card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6">
+                  <div class="avatar-lg rounded-circle bg-soft-info border-info border">
+                    <i class="fe-shopping-cart font-22 avatar-title text-info"></i>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="text-end">
+                    <h3 class="text-dark mt-1"><span data-plugin="counterup">{{total_neto}}</span> kg</h3>
+                    <p class="text-muted mb-1 text-truncate">Peso Neto Total</p>
+                  </div>
+                </div>
+              </div> <!-- end row -->
+            </div>
+          </div> <!-- end widget-rounded-circle -->
+        </div> <!-- end col -->
+
+        <div class="col-md-6 col-xl-3">
+          <div class="widget-rounded-circle card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6">
+                  <div class="avatar-lg rounded-circle bg-soft-warning border-warning border">
+                    <i class="fe-box font-22 avatar-title text-warning"></i>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="text-end">
+                    <h3 class="text-dark mt-1"><span data-plugin="counterup">{{total_bultos}}</span></h3>
+                    <p class="text-muted mb-1 text-truncate">Total de Bultos</p>
+                  </div>
+                </div>
+              </div> <!-- end row -->
+            </div>
+          </div> <!-- end widget-rounded-circle -->
+        </div> <!-- end col -->
+
+        <div class="col-md-6 col-xl-3">
+          <div class="widget-rounded-circle card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6">
+                  <div class="avatar-lg rounded-circle bg-soft-primary border-primary border">
+                    <i class="ti-money font-22 avatar-title text-primary"></i>
+                    
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="text-end">
+                    <h3 class="text-dark mt-1">$ <span data-plugin="counterup">{{total_importe}}</span></h3>
+                    <p class="text-muted mb-1 text-truncate">Importe Total</p>
+                  </div>
+                </div>
+              </div> <!-- end row -->
+            </div>
+          </div> <!-- end widget-rounded-circle -->
+        </div> <!-- end col -->
+
+        
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Start Content -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-3">
+            <div class="row">
+              <div class="col">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title"><strong>Número de factura</strong></h4>
+                    <p>{{ contenedor.factura }}</p>
+                    <h4 class="card-title"><strong>Número de contenedor</strong></h4>
+                    <p>{{ contenedor.identificador }}</p>
+                    <h4 class="card-title"><strong>Numero de Sello</strong></h4>
+                    <p>{{ contenedor.sello }}</p>
+                    <h4 class="card-title"><strong>HBL</strong></h4>
+                    <p>{{ contenedor.hbl }}</p>
+                    <h4 class="card-title"><strong>Empresa:</strong></h4>
+                    <p>{{ contenedor.empresa }}</p>
+                    <h4 class="card-title"><strong>Importadora:</strong></h4>
+                    <p>{{ contenedor.importadora }}</p>
+                    <h4 class="card-title"><strong>Proveedor:</strong></h4>
+                    <p>{{ contenedor.proveedor }}</p>
+                    <h4 class="card-title"><strong>Cliente:</strong></h4>
+                    <p>{{ contenedor.cliente }}</p>
+                    <h4 class="card-title"><strong>Estado</strong></h4>
+                    <p style="color: {{ contenedor.estado.color }}">{{ contenedor.estado }}</p>
+                    <h4 class="card-title"><strong>Condición de entrega</strong></h4>
+                    <p>{{ contenedor.transporte }}</p>
+                    <h4 class="card-title"><strong>Puerto de Origen:</strong></h4>
+                    <p>{{ contenedor.puerto_origen }}</p>
+                    <h4 class="card-title"><strong>Puerto de Destino:</strong></h4>
+                    <p>{{ contenedor.puerto_destino }}</p>
+                    <h4 class="card-title"><strong>Cubicaje:</strong></h4>
+                    <p>{{ contenedor.cubicaje }}</p>
+                    <h4 class="card-title"><strong>Flete:</strong></h4>
+                    <p>{{ contenedor.flete }}</p>
+                    <h4 class="card-title"><strong>Seguro:</strong></h4>
+                    <p>{{ contenedor.seguro }}</p>
+                    <h4 class="card-title"><strong>Fecha</strong></h4>
+                    <p>{{ contenedor.fecha_creacion|date:'Y/m/d' }}</p>
+                  </div> <!-- end card-body -->
+                </div> <!-- end card -->
+              </div> <!-- end col -->
+            </div> <!-- end row -->
+          </div> <!-- end col -->
+
+          <!-- task details -->
+          <div class="col-xl-9">
+            <div class="card">
+              <div class="card-body">
+                <div class="row justify-content-between mb-2">
+                  <div class="col-auto">
+                    {% if q %}
+                      <form method="GET" action="{% url 'contenedor_listado' %}" class="search-bar position-relative mb-sm-0 mb-2 d-flex align-items-center">
+                        <input type="text" name="q" class="form-control" placeholder="Buscar..." value="{{ request.GET.q }}" />
+                        <a href="{% url 'contenedor_listado' %}"><span class="mdi mdi-close-circle"></span></a>
+                      </form>
+                    {% else %}
+                      <form method="GET" action="{% url 'contenedor_listado' %}" class="search-bar position-relative mb-sm-0 mb-2">
+                        <input type="text" name="q" class="form-control" placeholder="Buscar..." />
+                        <span class="mdi mdi-magnify"></span>
+                      </form>
+                    {% endif %}
+                  </div>
+                  <div class="col-auto">
+                    <form action="" method="post">
+                      <div class="text-md-end">
+                        <a href="{% url 'excel' contenedor.id %}">
+                          <button type="button" class="btn btn-success waves-effect waves-light">
+                            <i class="bi bi-printer"></i>
+                            <span class="d-none d-md-inline">Exportar a Excel</span>
+                          </button>
+                        </a>
+                        <a href="{% url 'declaracion' contenedor.id %}">
+                          <button type="button" class="btn btn-success waves-effect waves-light">
+                            <i class="bi bi-printer"></i>
+                            <span class="d-none d-md-inline">Declaracion</span>
+                          </button>
+                        </a>
+                        <a href="{% url 'factura' contenedor.id %}">
+                          <button type="button" class="btn btn-success waves-effect waves-light">
+                            <i class="bi bi-printer"></i>
+                            <span class="d-none d-md-inline">Factura</span>
+                          </button>
+                        </a>
+                        <button type="button" class="btn btn-success waves-effect waves-light" onclick="abrir_creacion('{% url 'agregar_producto' contenedor.id %}')">
+                          <i class="fe-plus me-1"></i>
+                          <span class="d-none d-md-inline">Adicionar Producto</span>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- end col -->
+                </div>
+                {% if q %}
+                  <!-- Mostrar resultados de búsqueda -->
+                  <div class="table-responsive">
+                    <table class="table table-centered table-nowrap table-borderless table-hover mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <th>Partida Arancelaria</th>
+                          <th>Referencia</th>
+                          <th>Descripción del producto</th>
+                          <th>UM</th>
+                          <th>Cantidad</th>
+                          <th>Precio</th>
+                          <th>Bruto kg</th>
+                          <th>Neto kg</th>
+                          <th>Bultos</th>
+                          <th style="width: 82px;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for producto in contenedor.items.all %}
+                          <tr>
+                            <td>{{ producto.productos.partida_arancelaria.partida }}</td>
+                            <td>{{ producto.productos.referencia }}</td>
+                            <td>{{ producto.productos.descripcion }}</td>
+                            <td>{{ producto.productos.unidad_medida }}</td>
+                            <td>{{ producto.cantidad }}</td>
+                            <td>{{ producto.precio }}</td>
+                            <td>{{ producto.bruto_kg }}</td>
+                            <td>{{ producto.neto_kg }}</td>
+                            <td>{{ producto.bultos }}</td>
+                            <td>
+                              <button id="BotonEditar" onclick="abrir_edicion('{% url 'update_producto' producto.id %}')" style="border: none;" class="btn btn-outline-blue rounded-pill waves-effect waves-light"><i class="mdi mdi-square-edit-outline"></i></button>
+                              <button id="BotonEliminar" onclick="abrir_eliminar('{% url 'remove_producto' producto.id %}')" style="border: none;" class="btn btn-outline-danger rounded-pill waves-effect waves-light"><i class="mdi mdi-delete"></i></button>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                {% else %}
+                  <!-- Mostrar tabla de contenedor completa -->
+                  <div class="table-responsive" id="tabla-contenedor">
+                    <div class="table-responsive">
+                      <table class="table table-centered table-nowrap table-borderless table-hover mb-0">
+                        <thead class="table-light">
+                          <tr>
+                            <th>Partida Arancelaria</th>
+                            <th>Referencia</th>
+                            <th>Descripción del producto</th>
+                            <th>UM</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Bruto kg</th>
+                            <th>Neto kg</th>
+                            <th>Bultos</th>
+                            <th style="width: 82px;">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for producto in contenedor.items.all %}
+                            <tr>
+                              <td>{{ producto.productos.partida_arancelaria.partida }}</td>
+                              <td>{{ producto.productos.referencia }}</td>
+                              <td>{{ producto.productos.descripcion }}</td>
+                              <td>{{ producto.productos.unidad_medida }}</td>
+                              <td>{{ producto.cantidad }}</td>
+                              <td>{{ producto.precio }}</td>
+                              <td>{{ producto.bruto_kg }}</td>
+                              <td>{{ producto.neto_kg }}</td>
+                              <td>{{ producto.bultos }}</td>
+                              <td>
+                                <button id="BotonEditar" onclick="abrir_edicion('{% url 'update_producto' producto.id %}')" style="border: none;" class="btn btn-outline-blue rounded-pill waves-effect waves-light"><i class="mdi mdi-square-edit-outline"></i></button>
+                                <button id="BotonEliminar" onclick="abrir_eliminacion('{% url 'remove_producto' producto.id %}')" style="border: none;" class="btn btn-outline-danger rounded-pill waves-effect waves-light"><i class="mdi mdi-delete"></i></button>
+                              </td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                {% endif %}
+                {% if is_paginated %}
+                  <ul class="pagination pagination-rounded justify-content-end my-2">
+                    {% if page_obj.has_previous %}
+                      <li class="page-item">
+                        <a class="page-link" href="?q={{ q }}&page=1">&laquo;</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="?q={{ q }}&page={{ page_obj.previous_page_number }}">Anterior</a>
+                      </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                      {% if page_obj.number == num %}
+                        <li class="page-item active">
+                          <span class="page-link">{{ num }}</span>
+                        </li>
+                      {% else %}
+                        <li class="page-item">
+                          <a class="page-link" href="?q={{ q }}&page={{ num }}">{{ num }}</a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                      <li class="page-item">
+                        <a class="page-link" href="?q={{ q }}&page={{ page_obj.next_page_number }}">Siguiente</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="?q={{ q }}&page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+                      </li>
+                    {% endif %}
+                  </ul>
+                {% endif %}
+              </div> <!-- end card-body -->
+            </div> <!-- end card -->
+          </div> <!-- end col -->
+        </div>
+      </div> <!-- container -->
+    </div>
+  </div>
+
+  <div class="modal fade" id="editar" role="dialog"></div>
+  <div class="modal fade" id="crear" role="dialog"></div>
+  <div class="modal fade" id="eliminar" role="dialog"></div>
+{% endblock %}
+
+{% block extrajs %}
+  <script type="text/javascript">
+    function abrir_edicion(url) {
+      $('#editar').load(url, function () {
+        $(this).modal('show')
+      })
+    }
+    
+    function abrir_creacion(url) {
+      $('#crear').load(url, function () {
+        $(this).modal('show')
+      })
+    }
+    
+    function abrir_eliminacion(url) {
+      $('#eliminar').load(url, function () {
+        $(this).modal('show')
+      })
+    }
+    
+    var boton = document.getElementById('BotonLLenar')
+    boton.addEventListener('mouseover', function () {
+      this.setAttribute('title', 'Llenar')
+    })
+    boton.addEventListener('mouseout', function () {
+      this.removeAttribute('title')
+    })
+    
+    var boton = document.getElementById('BotonEditar')
+    boton.addEventListener('mouseover', function () {
+      this.setAttribute('title', 'Editar')
+    })
+    boton.addEventListener('mouseout', function () {
+      this.removeAttribute('title')
+    })
+    
+    var boton = document.getElementById('BotonEliminar')
+    boton.addEventListener('mouseover', function () {
+      this.setAttribute('title', 'Eliminar')
+    })
+    boton.addEventListener('mouseout', function () {
+      this.removeAttribute('title')
+    })
+  </script>
+{% endblock %}

@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+
+{% block tittle %}
+  Contenedor
+{% endblock %}
+
+{% block content %}
+  <div class="content">
+    <!-- Start Content -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mt-3">
+            <div class="card-body">
+              <div class="row justify-content-between mb-2">
+                <div class="col-auto">
+                  {% if q %}
+                    <form method="GET" action="{% url 'contenedor_listado' %}" class="search-bar position-relative mb-sm-0 mb-2 d-flex align-items-center">
+                      <input type="text" name="q" class="form-control" placeholder="Buscar..." value="{{ request.GET.q }}" />
+                      <a href="{% url 'contenedor_listado' %}"><span class="mdi mdi-close-circle"></span></a>
+                    </form>
+                  {% else %}
+                    <form method="GET" action="{% url 'contenedor_listado' %}" class="search-bar position-relative mb-sm-0 mb-2">
+                      <input type="text" name="q" class="form-control" placeholder="Buscar..." />
+                      <span class="mdi mdi-magnify"></span>
+                    </form>
+                  {% endif %}
+                </div>
+                <div class="col-auto">
+                  <form action="" method="post">
+                    <div class="text-md-end">
+                      <button type="button" class="btn btn-success waves-effect waves-light" onclick="abrir_creacion('{% url 'crear_contenedor' %}')">
+                        <i class="fe-plus me-1"></i>
+                        <span class="d-none d-md-inline">Nuevo contenedor</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <!-- end col -->
+              </div>
+              {% if q %}
+                <!-- Mostrar resultados de búsqueda -->
+                <div class="table-responsive">
+                  <table class="table table-centered table-nowrap table-borderless table-hover mb-0">
+                    <thead class="table-light">
+                      <tr style="text-align: center;">
+                        <th>No. de factura</th>
+                        <th>No. de contenedor</th>
+                        <th>Empresa</th>
+                        <th>Importadora</th>
+                        <th>Proveedor</th>
+                        <th>Cliente</th>
+                        <th>Estado</th>
+                        <th>Condición de entrega</th>
+                        <th>Fecha</th>
+                        <th style="width: 82px;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for contenedor in object_list %}
+                        <tr class="contenedor"
+                          data-toggle="tooltip"
+                          title="{% if contenedor.items.all %}{% for item in contenedor.items.all %}
+                            {{ item.productos }}
+                          {% endfor %}{% endif %}">
+                          <td>{{ contenedor.factura }}</td>
+                          <td>{{ contenedor.identificador }}</td>
+                          <td>{{ contenedor.empresa }}</td>
+                          <td>{{ contenedor.importadora }}</td>
+                          <td>{{ contenedor.proveedor }}</td>
+                          <td>{{ contenedor.cliente }}</td>
+                          <td style="color: {{ contenedor.estado.color }}">{{ contenedor.estado }}</td>
+                          <td tyle="text-align: center;">{{ contenedor.transporte }}</td>
+                          <td>{{ contenedor.fecha_creacion|date:'Y/m/d' }}</td>
+                          <td>
+                            <a href="{% url 'contenedor_llenar' contenedor.id %}"><button id="BotonLLenar" style="border: none;" class="btn btn-outline-blue rounded-pill waves-effect waves-light"><i class="mdi mdi-eye-outline"></i></button></a>
+                            <button id="BotonEditar" onclick="abrir_edicion('{% url 'actualizar_contenedor' contenedor.id %}')" style="border: none;" class="btn btn-outline-blue rounded-pill waves-effect waves-light"><i class="mdi mdi-square-edit-outline"></i></button>
+                            <button id="BotonEliminar" onclick="abrir_eliminacion('{% url 'eliminar_contenedor' contenedor.id %}')" style="border: none;" class="btn btn-outline-danger rounded-pill waves-effect waves-light"><i class="mdi mdi-delete"></i></button>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              {% else %}
+                <!-- Mostrar tabla de contenedor completa -->
+                <div class="table-responsive" id="tabla-contenedor">
+                  <div class="table-responsive">
+                    <table class="table table-centered table-nowrap table-borderless table-hover mb-0">
+                      <thead class="table-light">
+                        <tr style="text-align: center;">
+                          <th>No. de factura</th>
+                          <th>No. de contenedor</th>
+                          <th>HBL</th>
+                          <th>Empresa</th>
+                          <th>Importadora</th>
+                          <th>Proveedor</th>
+                          <th>Cliente</th>
+                          <th>Estado</th>
+                          <th>Condición de entrega</th>
+                          <th>Fecha</th>
+                          <th style="width: 82px; text-align: center;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for contenedor in object_list %}
+                          <tr class="contenedor"
+                            data-toggle="tooltip"
+                            data-html="True"
+                            title="{% if contenedor.items.all %}{% for item in contenedor.items.all %}
+                              {{ item.productos }}
+                            {% endfor %}{% endif %}">
+                            <td>{{ contenedor.factura }}</td>
+                            <td>{{ contenedor.identificador }}</td>
+                            <td>{{ contenedor.hbl }}</td>
+                            <td>{{ contenedor.empresa }}</td>
+                            <td>{{ contenedor.importadora }}</td>
+                            <td>{{ contenedor.proveedor }}</td>
+                            <td>{{ contenedor.cliente }}</td>
+                            <td style="color: white;"><span style="background-color: {{ contenedor.estado.color }} ;  display: inline-block;
+                              width: 80px;
+                              height: 20px;
+                              border-radius: 10%;
+                              border: 1px solid #ccc;
+                              margin-right: 5px;
+                              padding-left: 2px;a"> {{ contenedor.estado }}</span>
+                              </td>
+                            <td tyle="text-align: center;">{{ contenedor.transporte }}</td>
+                            <td>{{ contenedor.fecha_creacion|date:'Y/m/d' }}</td>
+                            <td>
+                              <a href="{% url 'contenedor_llenar' contenedor.id %}"><button id="BotonLLenar" style="border: none;" class="btn btn-outline-blue rounded-pill waves-effect waves-light"><i class="mdi mdi-eye-outline"></i></button></a>
+                              <button id="BotonEditar" onclick="abrir_edicion('{% url 'actualizar_contenedor' contenedor.id %}')" style="border: none;" class="btn btn-outline-blue rounded-pill waves-effect waves-light"><i class="mdi mdi-square-edit-outline"></i></button>
+                              <button id="BotonEliminar" onclick="abrir_eliminacion('{% url 'eliminar_contenedor' contenedor.id %}')" style="border: none;" class="btn btn-outline-danger rounded-pill waves-effect waves-light"><i class="mdi mdi-delete"></i></button>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              {% endif %}
+              {% if is_paginated %}
+                <ul class="pagination pagination-rounded justify-content-end my-2">
+                  {% if page_obj.has_previous %}
+                    <li class="page-item">
+                      <a class="page-link" href="?q={{ q }}&page=1">&laquo;</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="?q={{ q }}&page={{ page_obj.previous_page_number }}">Anterior</a>
+                    </li>
+                  {% endif %}
+
+                  {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                      <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                      </li>
+                    {% else %}
+                      <li class="page-item">
+                        <a class="page-link" href="?q={{ q }}&page={{ num }}">{{ num }}</a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if page_obj.has_next %}
+                    <li class="page-item">
+                      <a class="page-link" href="?q={{ q }}&page={{ page_obj.next_page_number }}">Siguiente</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="?q={{ q }}&page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+                    </li>
+                  {% endif %}
+                </ul>
+              {% endif %}
+            </div>
+            <!-- end card-body -->
+          </div>
+          <!-- end card -->
+        </div>
+        <!-- end col -->
+      </div>
+      <!-- end row -->
+    </div>
+    <!-- container -->
+  </div>
+
+  <div class="modal fade" id="editar" role="dialog"></div>
+  <div class="modal fade" id="crear" role="dialog"></div>
+  <div class="modal fade" id="eliminar" role="dialog"></div>
+{% endblock %}
+
+{% block extrajs %}
+  <script type="text/javascript">
+    function abrir_edicion(url) {
+      $('#editar').load(url, function () {
+        $(this).modal('show')
+      })
+    }
+    
+    function abrir_creacion(url) {
+      $('#crear').load(url, function () {
+        $(this).modal('show')
+      })
+    }
+    
+    function abrir_eliminacion(url) {
+      $('#eliminar').load(url, function () {
+        $(this).modal('show')
+      })
+    }
+    
+    var boton = document.getElementById('BotonLLenar')
+    boton.addEventListener('mouseover', function () {
+      this.setAttribute('title', 'Llenar')
+    })
+    boton.addEventListener('mouseout', function () {
+      this.removeAttribute('title')
+    })
+    
+    var boton = document.getElementById('BotonEditar')
+    boton.addEventListener('mouseover', function () {
+      this.setAttribute('title', 'Editar')
+    })
+    boton.addEventListener('mouseout', function () {
+      this.removeAttribute('title')
+    })
+    
+    var boton = document.getElementById('BotonEliminar')
+    boton.addEventListener('mouseover', function () {
+      this.setAttribute('title', 'Eliminar')
+    })
+    boton.addEventListener('mouseout', function () {
+      this.removeAttribute('title')
+    })
+    
+    $(document).ready(function () {
+      $('.contenedor').hover(
+        function () {
+          $(this).tooltip('show')
+          var currentElement = $(this)
+          setTimeout(function () {
+            currentElement.tooltip('hide')
+          }, 5000)
+        },
+        function () {
+          $(this).tooltip('hide')
+        }
+      )
+    })
+  </script>
+{% endblock %}

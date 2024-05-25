@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% block tittle %}
+  Prodcutos
+{% endblock %}
+
+{% block content %}
+  <div class="content">
+    <!-- Start Content -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mt-3">
+            <div class="card-body">
+              <div class="row justify-content-between mb-2">
+                <div class="col-auto">
+                  {% if q %}
+                    <form method="GET" action="{% url 'productos_listado' %}" class="search-bar position-relative mb-sm-0 mb-2 d-flex align-items-center">
+                      <input type="text" name="q" class="form-control" placeholder="Buscar..." value="{{ request.GET.q }}" />
+                      <a href="{% url 'productos_listado' %}"><span class="mdi mdi-close-circle"></span></a>
+                    </form>
+                  {% else %}
+                    <form method="GET" action="{% url 'productos_listado' %}" class="search-bar position-relative mb-sm-0 mb-2">
+                      <input type="text" name="q" class="form-control" placeholder="Buscar..." />
+                      <span class="mdi mdi-magnify"></span>
+                    </form>
+                  {% endif %}
+                </div>
+                <div class="col-auto">
+                  <form action="" method="post">
+                    <div class="text-md-end">
+                      <button type="button" class="btn btn-success waves-effect waves-light" onclick="abrir_creacion('{% url 'crear_producto' %}')">
+                        <i class="fe-plus me-1"></i>
+                        <span class="d-none d-md-inline">Nuevo Producto</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <!-- end col -->
+              </div>
+              {% if q %}
+                <!-- Mostrar resultados de búsqueda -->
+                <div class="table-responsive">
+                  <table class="table table-centered table-nowrap table-borderless table-hover mb-0">
+                    <thead class="table-light" style="text-align: center;">
+                      <tr>
+                        <th>Referencia</th>
+                        <th>Descripción del Producto</th>
+                        <th>Partida Arancelaria</th>
+                        <th>Peso Neto</th>
+                        <th>Peso Bruto</th>
+                        <th style="width: 82px;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody style="text-align: center;">
+                      {% for producto in object_list %}
+                        <tr>
+                          <td class="table-user">{{ producto.referencia }}</td>
+                          <td>{{ producto.descripcion }}</td>
+                          <td>{{ producto.partida_arancelaria.partida }}</td>
+                          <td>{{ producto.peso_neto }}</td>
+                          <td>{{ producto.peso_bruto }}</td>
+                          <td>
+                            <button id="BotonEditar" onclick="abrir_edicion('{% url 'actualizar_producto' producto.id %}')" style="border: none;" class="btn btn-outline-blue rounded-pill waves-effect waves-light"><i class="mdi mdi-square-edit-outline"></i></button>
+                            <button id="BotonEliminar" onclick="abrir_eliminar('{% url 'eliminar_producto' producto.id %}')" style="border: none;" class="btn btn-outline-danger rounded-pill waves-effect waves-light"><i class="mdi mdi-delete"></i></button>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              {% else %}
+                <!-- Mostrar tabla de productos completa -->
+                <div class="table-responsive" id="tabla-productos">
+                  <div class="table-responsive">
+                    <table class="table table-centered table-nowrap table-borderless table-hover mb-0">
+                      <thead class="table-light" style="text-align: center;">
+                        <tr>
+                          <th>Referencia</th>
+                          <th>Descripción del Producto</th>
+                          <th>Partida Arancelaria</th>
+                          <th>Unidad de Medida</th>
+                          <th>Peso Neto</th>
+                          <th>Peso Bruto</th>
+                          <th style="width: 82px;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody style="text-align: center;">
+                        {% for tienda_online in object_list %}
+                          <tr>
+                            <td class="table-user">{{ tienda_online.referencia }}</td>
+                            <td>{{ tienda_online.descripcion }}</td>
+                            <td>{{ tienda_online.partida_arancelaria.partida }}</td>
+                            <td>{{ tienda_online.unidad_medida }}</td>
+                            <td>{{ tienda_online.peso_neto }}</td>
+                            <td>{{ tienda_online.peso_bruto }}</td>
+                            <td>
+                              <button id="BotonEditar" onclick="abrir_edicion('{% url 'actualizar_producto' tienda_online.id %}')" style="border: none;" class="btn btn-outline-blue rounded-pill waves-effect waves-light"><i class="mdi mdi-square-edit-outline"></i></button>
+                              <button id="BotonEliminar" onclick="abrir_eliminacion('{% url 'eliminar_producto' tienda_online.id %}')" style="border: none;" class="btn btn-outline-danger rounded-pill waves-effect waves-light"><i class="mdi mdi-delete"></i></button>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              {% endif %}
+              {% if is_paginated %}
+                <ul class="pagination pagination-rounded justify-content-end my-2">
+                  {% if page_obj.has_previous %}
+                    <li class="page-item">
+                      <a class="page-link" href="?q={{ q }}&page=1">&laquo;</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="?q={{ q }}&page={{ page_obj.previous_page_number }}">Anterior</a>
+                    </li>
+                  {% endif %}
+
+                  {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                      <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                      </li>
+                    {% else %}
+                      <li class="page-item">
+                        <a class="page-link" href="?q={{ q }}&page={{ num }}">{{ num }}</a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if page_obj.has_next %}
+                    <li class="page-item">
+                      <a class="page-link" href="?q={{ q }}&page={{ page_obj.next_page_number }}">Siguiente</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="?q={{ q }}&page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+                    </li>
+                  {% endif %}
+                </ul>
+              {% endif %}
+            </div>
+            <!-- end card-body -->
+          </div>
+          <!-- end card -->
+        </div>
+        <!-- end col -->
+      </div>
+      <!-- end row -->
+    </div>
+    <!-- container -->
+  </div>
+
+  <div class="modal fade" id="editar" role="dialog"></div>
+  <div class="modal fade" id="crear" role="dialog"></div>
+  <div class="modal fade" id="eliminar" role="dialog"></div>
+{% endblock %}
+
+{% block extrajs %}
+  <script type="text/javascript">
+    function abrir_edicion(url) {
+      $('#editar').load(url, function () {
+        $(this).modal('show')
+      })
+    }
+    
+    function abrir_creacion(url) {
+      $('#crear').load(url, function () {
+        $(this).modal('show')
+      })
+    }
+    
+    function abrir_eliminacion(url) {
+      $('#eliminar').load(url, function () {
+        $(this).modal('show')
+      })
+    }
+    
+    var boton = document.getElementById('BotonEditar')
+    boton.addEventListener('mouseover', function () {
+      this.setAttribute('title', 'Editar')
+    })
+    boton.addEventListener('mouseout', function () {
+      this.removeAttribute('title')
+    })
+    
+    var boton = document.getElementById('BotonEliminar')
+    boton.addEventListener('mouseover', function () {
+      this.setAttribute('title', 'Eliminar')
+    })
+    boton.addEventListener('mouseout', function () {
+      this.removeAttribute('title')
+    })
+  </script>
+{% endblock %}

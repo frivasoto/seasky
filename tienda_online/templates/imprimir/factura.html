@@ -1,0 +1,204 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Factura</title>
+
+    <link href="{% static 'libs/flatpickr/flatpickr.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'libs/selectize/css/selectize.bootstrap3.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Theme Config Js -->
+    <script src="{% static 'js/head.js' %}"></script>
+
+    <!-- Bootstrap css -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" id="app-style" />
+
+    <!-- App css -->
+    <link href="{% static 'css/app.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Icons css -->
+    <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <style>
+      .table .table-bordered {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 8px;
+      }
+      .table .table-bordered thead th,
+      thead td {
+        border: 1px solid #dee2e6; /* Define un borde de 1px sólido de color gris claro para las celdas del tbody */
+        white-space: nowrap; /* Evita que los td se envuelvan en varias líneas */
+        overflow: hidden; /* Oculta el contenido que desborde */
+        text-overflow: ellipsis; /* Muestra puntos suspensivos si el contenido está oculto */
+        padding-top: 2px;
+        text-align: center; /* Centra el texto en las celdas */
+      }
+
+      .table .table-bordered tbody th,
+      tbody td {
+        border: 1px solid #dee2e6; /* Define un borde de 1px sólido de color gris claro para las celdas del tbody */
+        white-space: nowrap; /* Evita que los td se envuelvan en varias líneas */
+        overflow: hidden; /* Oculta el contenido que desborde */
+        text-overflow: ellipsis; /* Muestra puntos suspensivos si el contenido está oculto */
+        padding-top: 2px;
+        text-align: center; /* Centra el texto en las celdas */
+      }
+      .table .table-bordered tbody th {
+        background-color: #f2f2f2;
+      }
+      .product-description {
+        width: 200px; /* Ancho específico para la descripción del producto */
+        text-align: center; /* Alinea la descripción del producto a la izquierda */
+      }
+      .narrow-column {
+        width: 50px; /* Ancho más estrecho para las columnas del segundo conjunto */
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container_1">
+      <div class="table_0">
+        <table class="table table-bordared_0">
+          <tr>
+            <th colspan="3">
+              <p>Proveedor</p>
+              {{ contenedor.proveedor.nombre_proveedor }}
+            </th>
+            <th colspan="1"></th>
+            <th colspan="4">
+              
+              <img src="{{ logo_url }}" alt="Logo_empresa" style="width: 70px; height: 70px;">
+               <br />
+              {{ contenedor.empresa.nombre_empresa }} <br />
+              {{ contenedor.empresa.direccion_empresa }}
+            </th>
+            <th colspan="1"></th>
+            <th colspan="3">
+              <p>Cliente</p>
+              {{ contenedor.cliente.nombre_cliente }}
+            </th>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <br />
+    <div class="container">
+      <div class="table">
+        <table class="table table-bordered">
+          <caption style="text-align: center;">No. de factura: {{ contenedor.factura }}</caption>
+          <thead>
+            <tr>
+              <th colspan="3">
+                <h2>Factura para</h2>
+                <p>{{ contenedor.importadora }}</p>
+              </th>
+              <th colspan="6">
+                <h2>Dirección</h2>
+                <p>{{ contenedor.importadora.direccion_importadora }}</p>
+              </th>
+              <th colspan="3">
+                <h2>Nr. Contrato</h2>
+                <p>{{ contenedor.importadora.contrato }}</p>
+              </th>
+            </tr>
+            <tr>
+              <td colspan="12" style="border: none;"></td>
+            </tr>
+          </thead>
+          <tbody style="border: solid 1px;">
+            <tr>
+              <th colspan="5">No. de Contenedor (es)</th>
+              <th colspan="7">No. de Sello (s)</th>
+            </tr>
+            <tr>
+              <td colspan="5">{{ contenedor.identificador }}</td>
+              <td colspan="7">{{ contenedor.sello }}</td>
+            </tr>
+            <tr >
+              <td colspan="12" style="border: none;"></td>
+            </tr>
+            <tr style="text-align: center;">
+              <th class="narrow-column">Partida A.</th>
+              <th class="narrow-column">Referencia</th>
+              <th colspan="3" class="product-description">Descripción del Producto</th>
+              <th class="narrow-column">UM</th>
+              <th class="narrow-column">Cantidad</th>
+              <th class="narrow-column">Precio</th>
+              <th class="narrow-column">Importe</th>
+              <th class="narrow-column">Peso Bruto</th>
+              <th class="narrow-column">Peso Neto</th>
+              <th class="narrow-column">Bultos</th>
+            </tr>
+            {% for producto in productos_contenedor %}
+              <tr>
+                <td style="text-align: center;">{{ producto.producto.partida_arancelaria.partida }}</td>
+                <td style="text-align: center;">{{ producto.producto.referencia }}</td>
+                <td colspan="3" style="text-align: justify; padding: 2px;">{{ producto.producto.descripcion }}</td>
+                <td style="text-align: center;">{{ producto.producto.unidad_medida }}</td>
+                <td style="text-align: center;">{{ producto.cantidad }}</td>
+                <td style="text-align: center;">{{ producto.precio }}</td>
+                <td style="text-align: center;">$ {{ producto.importe }}</td>
+                <td style="text-align: center;">{{ producto.bruto_kg }} kg</td>
+                <td style="text-align: center;">{{ producto.neto_kg }} kg</td>
+                <td style="text-align: center;">{{ producto.bultos }}</td>
+              </tr>
+            {% endfor %}
+            <tr>
+              <td colspan="12"></td>
+            </tr>
+            <tr style="text-align: center;">
+              <th colspan="2">Cubicaje</th>
+              <th colspan="2">Origen de la Mercancia</th>
+              <th colspan="2">Puerto de Origen</th>
+              <th colspan="2">Puerto de Destino</th>
+              <th colspan="1">Importe Total</th>
+              <th colspan="1">Peso Bruto Total</th>
+              <th colspan="1">Peso Neto Total</th>
+              <th colspan="1">Total de Bultos</th>
+            </tr>
+            <tr style="text-align: center;">
+              <td colspan="2">{{ contenedor.cubicaje }} m³</td>
+              <td colspan="2">{{ contenedor.puerto_origen.pais_puerto }}</td>
+              <td colspan="2">{{ contenedor.puerto_origen.nombre_puerto }}</td>
+              <td colspan="2">{{ contenedor.puerto_destino.nombre_puerto }}</td>
+              <td colspan="1">$ {{ total_importe }}</td>
+              <td colspan="1">{{ total_bruto }} kg</td>
+              <td colspan="1">{{ total_neto }} kg</td>
+              <td colspan="1">{{ total_bultos }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="12"></td>
+            </tr>
+            <tr>
+              <td colspan="8"></td>
+              <th colspan="2" style="text-align: right;">Costo de Flete:</th>
+              <td colspan="2" style="text-align: center;">{{ contenedor.flete }} USD</td>
+            </tr>
+            <tr>
+              <td colspan="8"></td>
+              <th colspan="2" style="text-align: right;">Seguro:</th>
+              <td colspan="2" style="text-align: center;">{{ contenedor.seguro }} USD</td>
+            </tr>
+            <tr>
+              <td colspan="8"></td>
+              <th colspan="2" style="text-align: right;">Importe Total {{ contenedor.transporte }}:</th>
+              <td colspan="2" style="text-align: center;">{{ total_general }} USD</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <br />
+    <div class="">
+      <img src="{{ logo_url }}" alt="logo_empresa" style="width: 50px; height: 50px;">
+      <img src="{{ firma_url }}" alt="firma_empresa" style="width: 50px; height: 50px;">
+    </div>
+  </body>
+</html>

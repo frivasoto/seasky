@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declaración Jurada</title>
+
+    <link href="{% static 'libs/flatpickr/flatpickr.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'libs/selectize/css/selectize.bootstrap3.css' %}" rel="stylesheet" type="text/css" />
+    
+    <!-- Theme Config Js -->
+    <script src="{% static 'js/head.js' %}"></script>
+
+    <!-- Bootstrap css -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"  />
+
+    <!-- App css -->
+    <link href="{% static 'css/app.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Icons css -->
+    <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <style>
+        .firm{
+            text-align: center;
+        }
+        h2, h3{
+            text-align: center;
+            padding: 0%;
+            margin: 0%;
+        }
+        .container{
+            text-align: center;
+        }
+        .contenido{
+            text-align: justify;
+            margin: 10px;
+            font-size: 12px;
+        }
+        .declaracio{
+            margin: 5px;
+            margin-top: 5px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <img src="{{logo_url}}" alt="Logo_empresa" style="width: 70px; height: 70px;">
+        <h2>{{contenedor.empresa.nombre_empresa}}</h2>
+        <p>{{contenedor.empresa.direccion_empresa}}</p>
+    </div>
+    <div class="declaracion">
+        <div class="contenido">
+            <h2>DECLARACIÓN JURADA DE PAGO EN EL EXTRANJERO</h2>
+            <p>Yo <strong>{{contenedor.empresa.nombre_encargado}}</strong>, en mi condición de <strong>{{contenedor.empresa.cargo_encargado}}</strong> de la entidad Mexicana <strong>{{contenedor.empresa.nombre_empresa}}</strong>, con domicilio legal en {{contenedor.empresa.direccion_empresa}} Código de la Cámara de Comercio de Cuba <strong>{{contenedor.empresa.cod_camara}}</strong>.</p>
+            <h3>CERTIFICO QUE HE RECIBIDO EL PAGO EN EL EXTERIOR DE:</h3>
+            <p><strong>Factura:</strong> {{contenedor.factura}}</p>
+            <p><strong>Importadora:</strong> {{contenedor.importadora.nombre_importadora}}</p>
+            <p><strong>Nr. Contrato:</strong> {{contenedor.importadora.contrato}}</p>
+            <p><strong>Dirección:</strong> {{contenedor.importadora.direccion_importadora}}</p>
+            <p><strong>Importe total en USD:</strong> {{total_general}} USD</p>
+            <p><strong>Contenedor(es):</strong> {{contenedor.identificador}}</p>
+            <p><strong>Sello(s):</strong> {{contenedor.sello}}</p>
+            <p><strong>Puerto Origen:</strong> {{contenedor.puerto_origen.nombre_puerto}}</p>
+            <p><strong>Puerto Destino:</strong> {{contenedor.puerto_destino.nombre_puerto}}</p>
+            <br>
+            <p>Y para que así conste firma la presente:</p>
+            <div class="firm">
+                <span>{{contenedor.empresa.nombre_encargado}}</span> <br>
+                <span>{{contenedor.empresa.cargo_encargado}} de {{contenedor.empresa.nombre_empresa}}</span> <br>
+                <img src="{{ firma_url }}" alt="firma_empresa" style="width: 60px; height: 60px;">   
+            </div>
+            
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

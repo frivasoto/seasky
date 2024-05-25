@@ -1,0 +1,43 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+            <h2 class="card-title mb-0 text-white">Editar producto del contenedor</h2>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'update_producto' object.id %}" method="post" enctype="multipart/form-data" class="m-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="id_productos" class="form-label">Producto</label>
+                {{ form.productos }}
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_descripcion" class="form-label">Cantidad</label>
+                    {{ form.cantidad }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="id_peso_neto" class="form-label">Precio</label>
+                    {{ form.precio }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="id_peso_bruto" class="form-label">Bruto kg</label>
+                    {{ form.bruto_kg }}
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="id_unidad_medida" class="form-label">Neto kg</label>
+                    {{ form.neto_kg }}
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="id_unidad_medida" class="form-label">Bultos</label>
+                    {{ form.bultos }}
+                  </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-success" type="submit">Confirmar</button>
+            </div>
+        </form>   
+    </div>
+</div>

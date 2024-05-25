@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block tittle %}
+    Empresas
+{% endblock %}
+
+
+{% block content %}
+    
+<div class="content-page">
+
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <div class="row justify-content-between">
+                                <div class="col-auto">  
+                                    {% if q %}
+                                        <form method="GET" action="{% url 'empresa_listado' %}" class="search-bar position-relative mb-sm-0 mb-2 d-flex align-items-center">
+                                            <input type="text" name="q" class="form-control" placeholder="Buscar..." value="{{ request.GET.q }}">
+                                            <a href="{% url 'empresa_listado' %}"><span class="mdi mdi-close-circle"></span></a>
+                                        </form>
+                                    {% else %}
+                                        <form method="GET" action="{% url 'empresa_listado' %}" class="search-bar position-relative mb-sm-0 mb-2">
+                                            <input type="text" name="q" class="form-control" placeholder="Buscar...">
+                                            <span class="mdi mdi-magnify"></span>
+                                        </form> 
+                                    {% endif %}
+                                </div>
+                                <div class="col-auto">
+                                    <form action="" method="post">
+                                        <div class="text-md-end">
+                                            <button type="button" class="btn btn-success waves-effect waves-light" onclick="abrir_creacion('{% url 'crear_empresa' %}')">
+                                                <i class="fe-plus me-1"></i>
+                                                <span class="d-none d-md-inline">Nueva empresa</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div><!-- end col-->
+                            </div>
+                        </div>
+                    </div> <!-- end card -->
+                </div><!-- end col-->
+            </div>
+            <!-- end row -->        
+
+            <div class="row">
+                {% for empresa in object_list %}
+                <div class="col-lg-4">
+                    <div class="card bg-pattern">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-end">
+                                <button id="BotonEditar" onclick="abrir_edicion('{% url 'actualizar_empresa' empresa.id %}')" style="border: none;" class="btn btn-outline-blue rounded-pill waves-effect waves-light me-2"> <i class="mdi mdi-square-edit-outline"></i></button>
+                                <button id="BotonEliminar" onclick="abrir_eliminacion('{% url 'eliminar_empresa' empresa.id %}')"  style="border: none;" class="btn btn-outline-danger rounded-pill waves-effect waves-light"><i class="mdi mdi-delete"></i></button>
+                            </div>
+                            <div class="text-center">
+                                {% if empresa.logo_empresa %}
+                                    <img src="{{ empresa.logo_empresa.url }}" alt="{{empresa.nombre_empresa}}" class="avatar-xl">
+                                {% else %}
+                                    <!-- Coloca aquí una imagen de respaldo o un mensaje de error -->
+                                    <p>No se encontró imagen para esta empresa</p>
+                                {% endif %}
+                                <h4 class="mb-1 font-20">{{ empresa.nombre_empresa }}</h4>
+                                <p class="text-muted  font-14">{{ empresa.direccion_empresa }}</p>
+                            </div>
+        
+                            <p class="font-14 text-center text-muted">
+                                {{ empresa.forma_pago }}
+                            </p>       
+                            <div class="row mt-4 text-center">
+                                <div class="col-6">
+                                    <h5 class="fw-normal text-muted">Código de Cámara</h5>
+                                    <h4>{{ empresa.cod_camara }}</h4>
+                                </div>
+                                
+                                <div class="col-6">
+                                    <h5 class="fw-normal text-muted">Encargado</h5>
+                                    <h4>{{ empresa.nombre_encargado }}</h4>
+                                    <p>{{ empresa.cargo_encargado }}</p>
+                                </div>
+                                <div class="text-center">
+                                    {% if empresa.firma_empresa %}
+                                        <img src="{{ empresa.firma_empresa.url }}" alt="" class="avatar-xl">
+                                    {% else %}
+                                        <!-- Coloca aquí una imagen de respaldo o un mensaje de error -->
+                                        <p>No se encontró imagen para esta empresa</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if empresa.activo %}
+                                <span class="badge bg-success">Activo</span>
+                            {% else %}
+                                <span class="badge bg-danger">Inactivo</span>
+                            {% endif %}
+                            
+                        </div>
+                    </div> <!-- end card -->
+                </div><!-- end col -->
+                {% endfor %} 
+            </div>
+            <!-- end row -->
+            {% if is_paginated %}
+                <ul class="pagination pagination-rounded justify-content-end my-2">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?q={{ q }}&page=1">&laquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="?q={{ q }}&page={{ page_obj.previous_page_number }}">Anterior</a></li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?q={{ q }}&page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?q={{ q }}&page={{ page_obj.next_page_number }}">Siguiente</a></li>
+                        <li class="page-item"><a class="page-link" href="?q={{ q }}&page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+            
+            
+
+            
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+
+    <!-- Footer Start -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div><script>document.write(new Date().getFullYear())</script> © Ubold - <a href="https://coderthemes.com/" target="_blank">Coderthemes.com</a></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-none d-md-flex gap-4 align-item-center justify-content-md-end footer-links">
+                        <a href="javascript: void(0);">About</a>
+                        <a href="javascript: void(0);">Support</a>
+                        <a href="javascript: void(0);">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+
+</div>
+
+<div class="modal fade" id="editar" role="dialog">
+
+</div>
+<div class="modal fade " id="crear" role="dialog">
+
+</div>
+<div class="modal fade" id="eliminar" role="dialog">
+
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+    function abrir_edicion(url){
+        $('#editar').load(url, function(){
+            $(this).modal('show');
+        });
+    }
+
+    function abrir_creacion(url){
+        $('#crear').load(url, function(){
+            $(this).modal('show');
+        });
+    }
+
+    function abrir_eliminacion(url){
+        $('#eliminar').load(url, function(){
+            $(this).modal('show');
+        });
+    }
+
+    var boton = document.getElementById('BotonEditar');
+    boton.addEventListener('mouseover', function() {
+        this.setAttribute('title', 'Editar');
+    });
+    boton.addEventListener('mouseout', function() {
+        this.removeAttribute('title');
+    });
+
+    var boton = document.getElementById('BotonEliminar');
+    boton.addEventListener('mouseover', function() {
+        this.setAttribute('title', 'Eliminar');
+    });
+    boton.addEventListener('mouseout', function() {
+        this.removeAttribute('title');
+    });
+</script>
+
+{% endblock %}

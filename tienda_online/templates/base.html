@@ -1,0 +1,275 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seasky</title>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'images/logo_empresa favicon.ico' %}" />
+
+    <!-- Plugins css -->
+    <link href="{% static 'libs/flatpickr/flatpickr.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'libs/selectize/css/selectize.bootstrap3.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Theme Config Js -->
+    <script src="{% static 'js/head.js' %}"></script>
+
+    <!-- Bootstrap css -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" id="app-style" />
+
+    <!-- App css -->
+    <link href="{% static 'css/app.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Icons css -->
+    <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <!-- Begin page -->
+    <div id="wrapper">
+      <!-- ========== Menu ========== -->
+      <div class="app-menu">
+        <!-- Brand Logo -->
+        <div class="logo-box">
+          <!-- Brand Logo Light -->
+          <a href="{% url 'base' %}" class="logo-light">
+            <img src="{% static 'images/logo_empresa horizontal.png' %}" alt="logo" class="logo-lg" />
+            <img src="{% static 'images/logo_empresa logotipo.png' %}" alt="small logo" class="logo-sm" />
+          </a>
+
+          <!-- Brand Logo Dark -->
+          <a href="{% url 'base' %}" class="logo-dark">
+            <img src="{% static 'images/logo_empresa horizontal.png' %}" alt="dark logo" class="logo-lg" />
+            <img src="{% static 'images/logo_empresa logotipo.png' %}" alt="small logo" class="logo-sm" />
+          </a>
+        </div>
+
+        <!-- menu-left -->
+        <div class="scrollbar show h-100">
+          <!-- - Menu -->
+          <ul class="menu">
+            <li class="menu-title">Administración</li>
+            <li class="menu-item">
+              <a href="{% url 'contenedor_listado' %}" class="menu-link">
+                <span class="menu-icon"><i class="bi bi-box"></i></span>
+                <span class="menu-text">Contenedor</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{% url 'productos_listado' %}" class="menu-link">
+                <span class="menu-icon"><i data-feather="shopping-cart"></i></span>
+                <span class="menu-text">Productos</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#menuEcommerce" data-bs-toggle="collapse" class="menu-link">
+                <span class="menu-icon"><i class="bi bi-gear"></i></span>
+                <span class="menu-text">Configuración</span>
+                <span class="menu-arrow"></span>
+              </a>
+              <div class="collapse" id="menuEcommerce">
+                <ul class="sub-menu">
+                  <li class="menu-item">
+                    <a href="{% url 'cliente_listado' %}" class="menu-link">
+                      <span class="menu-icon"><i class="bi bi-person"></i></span>
+                      <span class="menu-text">Clientes</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="{% url 'empresa_listado' %}" class="menu-link">
+                      <span class="menu-icon"><i class="bi bi-building"></i></span>
+                      <span class="menu-text">Empresas</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="{% url 'estado_listado' %}" class="menu-link">
+                      <span class="menu-icon"><i class="bi bi-emoji-neutral"></i></span>
+                      <span class="menu-text">Estado</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="{% url 'importadora_listado' %}" class="menu-link">
+                      <span class="menu-icon"><i class="bi bi-briefcase"></i></span>
+                      <span class="menu-text">Importadoras</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="{% url 'pais_listado' %}" class="menu-link">
+                      <span class="menu-icon"><i class="bi bi-globe"></i></span>
+                      <span class="menu-text">País</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="{% url 'partida_listado' %}" class="menu-link">
+                      <span class="menu-icon"><i class="bi bi-list-check"></i></span>
+                      <span class="menu-text">Partidas Arancelarias</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="{% url 'proveedor_listado' %}" class="menu-link">
+                      <span class="menu-icon"><i class="bi bi-people"></i></span>
+                      <span class="menu-text">Proveedores</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="{% url 'puerto_listado' %}" class="menu-link">
+                      <span class="menu-icon"><i class="bi bi-geo-alt"></i></span>
+                      <span class="menu-text">Puertos</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="{% url 'transporte_listado' %}" class="menu-link">
+                      <span class="menu-icon"><i class="bi bi-truck"></i></span>
+                      <span class="menu-text">Condición de Entrega</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="{% url 'unidad_listado' %}" class="menu-link">
+                      <span class="menu-icon"><i class="bi bi-rulers"></i></span>
+                      <span class="menu-text">Unidad de Medida</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+          <!-- - End Menu -->
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <!-- ========== Left menu End ========== -->
+
+      <!-- ============================================================== -->
+      <!-- Start Page Content here -->
+      <!-- ============================================================== -->
+
+      <div class="content-page">
+        <!-- ========== Topbar Start ========== -->
+        <div class="navbar-custom">
+          <div class="topbar">
+            <div class="topbar-menu d-flex align-items-center gap-1">
+              <!-- Topbar Brand Logo -->
+              
+
+              <!-- Sidebar Menu Toggle Button -->
+              <button class="button-toggle-menu"><i class="mdi mdi-menu"></i></button>
+            </div>
+
+            <ul class="topbar-menu d-flex align-items-center">
+              <!-- Fullscreen Button -->
+              <li class="d-none d-md-inline-block">
+                <a class="nav-link waves-effect waves-light" href="" data-toggle="fullscreen"><i class="fe-maximize font-22"></i></a>
+              </li>
+
+              <!-- Search Dropdown (for Mobile/Tablet) -->
+              <li class="dropdown d-lg-none">
+                <a class="nav-link dropdown-toggle waves-effect waves-light arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i class="ri-search-line font-22"></i></a>
+                <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
+                  <form class="p-3">
+                    <input type="search" class="form-control" placeholder="Search ..." aria-label="Recipient's username" />
+                  </form>
+                </div>
+              </li>
+
+              <!-- Light/Dark Mode Toggle Button -->
+              <li class="d-none d-sm-inline-block">
+                <div class="nav-link waves-effect waves-light" id="light-dark-mode">
+                  <i class="ri-moon-line font-22"></i>
+                </div>
+              </li>
+
+              <!-- User Dropdown -->
+              <li class="dropdown">
+                <!-- item -->
+                <form method="post" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="dropdown-item notify-item">
+                    <i class="fe-log-out me-1"></i>
+                    <span>cerrar sesión</span>
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- ========== Topbar End ========== -->
+        <div style="margin-right: 50px; margin-left: 50px;">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="page-title-box">
+                  <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                      {% for item in breadcrumb %}
+                        {% if forloop.last %}
+                          <li class="breadcrumb-item active">{{ item.text }}</li>
+                        {% else %}
+                          <li class="breadcrumb-item">
+                            <a href="{{ item.url }}">{{ item.text }}</a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ol>
+                  </div>
+                  <h4 class="page-title">
+                    {% block tittle %}
+
+                    {% endblock %}
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% block content %}
+
+        {% endblock %}
+        <!-- Footer Start -->
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <div>
+                  <script>
+                    document.write(new Date().getFullYear())
+                  </script>© Seasky - <a href="#" target="_blank">Seasky.com</a>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-none d-md-flex gap-4 align-item-center justify-content-md-end footer-links">
+                  <a href="javascript: void(0);">About</a>
+                  <a href="javascript: void(0);">Support</a>
+                  <a href="javascript: void(0);">Contact Us</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!-- end Footer -->
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- End Page content -->
+      <!-- ============================================================== -->
+    </div>
+    <!-- END wrapper -->
+    <!-- Vendor js -->
+    <script src="{% static 'js/vendor.min.js' %}"></script>
+
+    <!-- App js -->
+    <script src="{% static 'js/app.min.js' %}"></script>
+
+    <!-- Plugins js -->
+    <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+    <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+    <script src="{% static 'libs/selectize/js/standalone/selectize.min.js' %}"></script>
+
+    
+
+    {% block extrajs %}
+
+    {% endblock %}
+  </body>
+</html>

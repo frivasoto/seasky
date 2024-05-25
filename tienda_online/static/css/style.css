@@ -1,0 +1,54 @@
+.container_1 {
+    display: flex;
+    justify-content: space-between; /* Distribuye las tarjetas equitativamente */
+}
+
+.card {
+    width: 30%; /* Ancho fijo para cada tarjeta */
+    border: 1px solid #ccc; /* Borde de 1px sólido de color gris */
+    border-radius: 5px; /* Bordes redondeados */
+    margin-right: 5px; /* Espacio entre las tarjetas */
+    box-sizing: border-box; /* El tamaño total incluye el borde */
+}
+
+.card:last-child {
+    margin-right: 0; /* Elimina el margen derecho para la última tarjeta */
+}
+
+.card-body {
+    padding: 20px; /* Relleno interno */
+}
+.container {
+    position: relative;
+}
+.table_footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 700px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 8px;
+    
+}
+th, td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    white-space: nowrap; /* Evita que los td se envuelvan en varias líneas */
+    overflow: hidden; /* Oculta el contenido que desborde */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos si el contenido está oculto */
+    padding-top: 2px;
+}
+th {
+    background-color: #f2f2f2;
+}
+.product-description {
+    width: 200px; /* Ancho específico para la descripción del producto */
+    text-align: center; /* Alinea la descripción del producto a la izquierda */
+}
+.narrow-column {
+    width: 50px; /* Ancho más estrecho para las columnas del segundo conjunto */
+}

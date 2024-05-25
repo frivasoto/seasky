@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" data-layout-mode="detached" data-topbar-color="dark" data-sidenav-user="true">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Log In | Ubold - Responsive Bootstrap 5 Admin Dashboard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="  {% static '/images/logo_empresa favicon.ico' %} ">
+
+		<!-- Theme Config Js -->
+		<script src=" {% static ' /js/head.js' %}"></script>
+
+		<!-- Bootstrap css -->
+		<link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" id="app-style" />
+
+		<!-- App css -->
+		<link href="{% static '/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+
+		<!-- Icons css -->
+		<link href="{% static '/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body class="auth-fluid-pages pb-0">
+
+        <div class="auth-fluid">
+            <!--Auth fluid left content -->
+            <div class="auth-fluid-form-box">
+                <div class="align-items-center d-flex h-100">
+                    <div class="p-3">
+
+                        <!-- Logo -->
+                        <div class="auth-brand text-center text-lg-start">
+                            <div class="auth-brand">
+                                <a href="" class="logo logo-dark text-center">
+                                    <span class="logo-lg">
+                                        <img src="{% static '/images/logo_empresa horizontal.png' %}" alt="" height="22">
+                                    </span>
+                                </a>
+            
+                                <a href="" class="logo logo-light text-center">
+                                    <span class="logo-lg">
+                                        <img src="{% static '/images/logo_empresa horizontal.png' %}" alt="" height="22">
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- title-->
+                        <h4 class="mt-0">Inicio de Sesión</h4>
+                        <p class="text-muted mb-4">Teclee su usuario y contraseña para acceder a su cuenta</p>
+
+                        <!-- form -->
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="id_username" class="form-label">Usuario</label>
+                                <input class="form-control" type="text" name="username" id="id_username" required placeholder="Enter your username">
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_password" class="form-label">Contraseña</label>
+                                <div class="input-group input-group-merge">
+                                    <input type="password" id="id_password" class="form-control" placeholder="Enter your password" name="password" required>
+                                    <div class="input-group-text" data-password="false">
+                                        <span class="password-eye"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center d-grid">
+                                <button class="btn btn-primary" type="submit">Iniciar Sesión </button>
+                            </div>
+                        </form>
+                        <!-- end form-->
+
+                        <!-- Footer-->
+                        <footer class="footer footer-alt">
+                           
+                        </footer>
+
+                    </div> <!-- end .card-body -->
+                </div> <!-- end .align-items-center.d-flex.h-100-->
+            </div>
+            <!-- end auth-fluid-form-box-->
+
+            <!-- Auth fluid right content -->
+            <div class="auth-fluid-right text-center">
+                <div class="auth-user-testimonial">
+                    <h2 class="mb-3 text-white">I love the color!</h2>
+                    <p class="lead"><i class="mdi mdi-format-quote-open"></i> I've been using your theme from the previous developer for our web app, once I knew new version is out, I immediately bought with no hesitation. Great themes, good documentation with lots of customization available and sample app that really fit our need. <i class="mdi mdi-format-quote-close"></i>
+                    </p>
+                    <h5 class="text-white">
+                        - Fadlisaad (Seasky Admin User)
+                    </h5>
+                </div> <!-- end auth-user-testimonial-->
+            </div>
+            <!-- end Auth fluid right content -->
+        </div>
+        <!-- end auth-fluid-->
+
+        <!-- Authentication js -->
+        <script src="{% static '/js/pages/authentication.init.js' %}"></script>
+
+    </body>
+</html>

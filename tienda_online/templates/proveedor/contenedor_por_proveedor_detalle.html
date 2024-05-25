@@ -1,0 +1,323 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" data-layout-mode="detached" data-topbar-color="dark" data-sidenav-user="true">
+  <head>
+    <meta charset="utf-8" />
+    <title>Contenedores | Seasky - Contenedores por proveedor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <link rel="shortcut icon" href="{% static 'images/logo_empresa favicon.ico' %}" />
+
+    <!-- Plugins css -->
+    <link href="{% static 'libs/flatpickr/flatpickr.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'libs/selectize/css/selectize.bootstrap3.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Theme Config Js -->
+    <script src="{% static 'js/head.js' %}"></script>
+
+    <!-- Bootstrap css -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" id="app-style" />
+
+    <!-- App css -->
+    <link href="{% static 'css/app.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Icons css -->
+    <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <!-- Begin page -->
+    
+    <div style="margin-right: 50px; margin-left: 50px; ">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box d-flex align-items-center mt-3">
+              <a href="javascript:history.back()" class="btn btn-danger me-3">
+                <i class="fas fa-arrow-left"></i>
+              </a>
+              <h4 class="page-title mb-0">Detalles del Contenedor {{ contenedor.identificador }}</h4>
+              <div class="page-title-right ms-auto">
+                <ol class="breadcrumb m-0">
+                  {% for item in breadcrumb %}
+                    {% if forloop.last %}
+                      <li class="breadcrumb-item active">{{ item.text }}</li>
+                    {% else %}
+                      <li class="breadcrumb-item">
+                        <a href="{{ item.url }}">{{ item.text }}</a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <!-- ============================================================== -->
+      <!-- Start Page Content here -->
+      <!-- ============================================================== -->
+      <div class="content m-3">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 col-xl-3">
+              <div class="widget-rounded-circle card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                        <i class="fe-shopping-cart font-22 avatar-title text-success"></i>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="text-end">
+                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{total_bruto}}</span> kg</h3>
+                        <p class="text-muted mb-1 text-truncate">Peso Bruto Total</p>
+                      </div>
+                    </div>
+                  </div> <!-- end row -->
+                </div>
+              </div> <!-- end widget-rounded-circle -->
+            </div> <!-- end col -->
+    
+            <div class="col-md-6 col-xl-3">
+              <div class="widget-rounded-circle card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="avatar-lg rounded-circle bg-soft-info border-info border">
+                        <i class="fe-shopping-cart font-22 avatar-title text-info"></i>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="text-end">
+                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{total_neto}}</span> kg</h3>
+                        <p class="text-muted mb-1 text-truncate">Peso Neto Total</p>
+                      </div>
+                    </div>
+                  </div> <!-- end row -->
+                </div>
+              </div> <!-- end widget-rounded-circle -->
+            </div> <!-- end col -->
+    
+            <div class="col-md-6 col-xl-3">
+              <div class="widget-rounded-circle card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="avatar-lg rounded-circle bg-soft-warning border-warning border">
+                        <i class="fe-box font-22 avatar-title text-warning"></i>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="text-end">
+                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{total_bultos}}</span></h3>
+                        <p class="text-muted mb-1 text-truncate">Total de Bultos</p>
+                      </div>
+                    </div>
+                  </div> <!-- end row -->
+                </div>
+              </div> <!-- end widget-rounded-circle -->
+            </div> <!-- end col -->
+    
+            <div class="col-md-6 col-xl-3">
+              <div class="widget-rounded-circle card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="avatar-lg rounded-circle bg-soft-primary border-primary border">
+                        <i class="ti-money font-22 avatar-title text-primary"></i>
+                        
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="text-end">
+                        <h3 class="text-dark mt-1">$ <span data-plugin="counterup">{{total_importe}}</span></h3>
+                        <p class="text-muted mb-1 text-truncate">Importe Total</p>
+                      </div>
+                    </div>
+                  </div> <!-- end row -->
+                </div>
+              </div> <!-- end widget-rounded-circle -->
+            </div> <!-- end col -->
+    
+            
+          </div>
+        </div>
+    
+        <div class="content ">
+          <!-- Start Content -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xl-3">
+                <div class="row">
+                  <div class="col">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title"><strong>Número de factura</strong></h4>
+                        <p>{{ contenedor.factura }}</p>
+                        <h4 class="card-title"><strong>Número de contenedor</strong></h4>
+                        <p>{{ contenedor.identificador }}</p>
+                        <h4 class="card-title"><strong>Numero de Sello</strong></h4>
+                        <p>{{ contenedor.sello }}</p>
+                        <h4 class="card-title"><strong>HBL</strong></h4>
+                        <p>{{ contenedor.hbl }}</p>
+                        <h4 class="card-title"><strong>Empresa:</strong></h4>
+                        <p>{{ contenedor.empresa }}</p>
+                        <h4 class="card-title"><strong>Importadora:</strong></h4>
+                        <p>{{ contenedor.importadora }}</p>
+                        <h4 class="card-title"><strong>Proveedor:</strong></h4>
+                        <p>{{ contenedor.proveedor }}</p>
+                        <h4 class="card-title"><strong>Cliente:</strong></h4>
+                        <p>{{ contenedor.cliente }}</p>
+                        <h4 class="card-title"><strong>Estado</strong></h4>
+                        <p style="color: {{ contenedor.estado.color }}">{{ contenedor.estado }}</p>
+                        <h4 class="card-title"><strong>Condición de entrega</strong></h4>
+                        <p>{{ contenedor.transporte }}</p>
+                        <h4 class="card-title"><strong>Puerto de Origen:</strong></h4>
+                        <p>{{ contenedor.puerto_origen }}</p>
+                        <h4 class="card-title"><strong>Puerto de Destino:</strong></h4>
+                        <p>{{ contenedor.puerto_destino }}</p>
+                        <h4 class="card-title"><strong>Cubicaje:</strong></h4>
+                        <p>{{ contenedor.cubicaje }}</p>
+                        <h4 class="card-title"><strong>Flete:</strong></h4>
+                        <p>{{ contenedor.flete }}</p>
+                        <h4 class="card-title"><strong>Seguro:</strong></h4>
+                        <p>{{ contenedor.seguro }}</p>
+                        <h4 class="card-title"><strong>Fecha</strong></h4>
+                        <p>{{ contenedor.fecha_creacion|date:'Y/m/d' }}</p>
+                      </div> <!-- end card-body -->
+                    </div> <!-- end card -->
+                  </div> <!-- end col -->
+                </div> <!-- end row -->
+              </div> <!-- end col -->
+    
+              <!-- task details -->
+              <div class="col-xl-9">
+                <div class="card">
+                  <div class="card-body">
+                      <!-- Mostrar tabla de contenedor completa -->
+                      <div class="table-responsive" id="tabla-contenedor">
+                        <div class="table-responsive">
+                          <table class="table table-centered table-nowrap table-borderless table-hover mb-0">
+                            <thead class="table-light">
+                              <tr>
+                                <th>Partida Arancelaria</th>
+                                <th>Referencia</th>
+                                <th>Descripción del producto</th>
+                                <th>UM</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Bruto kg</th>
+                                <th>Neto kg</th>
+                                <th>Bultos</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for producto in contenedor.items.all %}
+                                <tr>
+                                  <td>{{ producto.productos.partida_arancelaria.partida }}</td>
+                                  <td>{{ producto.productos.referencia }}</td>
+                                  <td>{{ producto.productos.descripcion }}</td>
+                                  <td>{{ producto.productos.unidad_medida }}</td>
+                                  <td>{{ producto.cantidad }}</td>
+                                  <td>{{ producto.precio }}</td>
+                                  <td>{{ producto.bruto_kg }}</td>
+                                  <td>{{ producto.neto_kg }}</td>
+                                  <td>{{ producto.bultos }}</td>
+                                </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    
+                    {% if is_paginated %}
+                      <ul class="pagination pagination-rounded justify-content-end my-2">
+                        {% if page_obj.has_previous %}
+                          <li class="page-item">
+                            <a class="page-link" href="?q={{ q }}&page=1">&laquo;</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="?q={{ q }}&page={{ page_obj.previous_page_number }}">Anterior</a>
+                          </li>
+                        {% endif %}
+    
+                        {% for num in page_obj.paginator.page_range %}
+                          {% if page_obj.number == num %}
+                            <li class="page-item active">
+                              <span class="page-link">{{ num }}</span>
+                            </li>
+                          {% else %}
+                            <li class="page-item">
+                              <a class="page-link" href="?q={{ q }}&page={{ num }}">{{ num }}</a>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+    
+                        {% if page_obj.has_next %}
+                          <li class="page-item">
+                            <a class="page-link" href="?q={{ q }}&page={{ page_obj.next_page_number }}">Siguiente</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="?q={{ q }}&page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+                          </li>
+                        {% endif %}
+                      </ul>
+                    {% endif %}
+                  </div> <!-- end card-body -->
+                </div> <!-- end card -->
+              </div> <!-- end col -->
+            </div>
+          </div> <!-- container -->
+        </div>
+      </div>
+        <!-- Footer Start -->
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <div>
+                  <script>
+                    document.write(new Date().getFullYear())
+                  </script>© Ubold - <a href="https://coderthemes.com/" target="_blank">Coderthemes.com</a>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-none d-md-flex gap-4 align-item-center justify-content-md-end footer-links">
+                  <a href="javascript: void(0);">About</a>
+                  <a href="javascript: void(0);">Support</a>
+                  <a href="javascript: void(0);">Contact Us</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!-- end Footer -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Page content -->
+      <!-- ============================================================== -->
+    
+
+    <script src="{% static 'js/vendor.min.js' %}"></script>
+
+    <!-- App js -->
+    <script src="{% static 'js/app.min.js' %}"></script>
+
+    <!-- Plugins js -->
+    <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+    <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+    <script src="{% static 'libs/selectize/js/standalone/selectize.min.js' %}"></script>
+
+    {% comment %}mio{% endcomment %}
+    <script src="{% static 'js/mijs.js' %}"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+    </script>
+  </body>
+</html>
