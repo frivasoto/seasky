@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^l9-8)kwvvj&b2898secm-v2ff$92p@p!0@o&_vamg53k6wc@z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("HTTPS") == 'http'
+DEBUG = True
 
 SITE_DOMAIN = os.getenv("SITE_DOMAIN")
 
