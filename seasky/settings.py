@@ -35,7 +35,8 @@ HTTPS = os.getenv("HTTPS")
 
 ALLOWED_HOSTS = [SITE_DOMAIN]
 
-CSRF_TRUSTED_ORIGINS = [SITE_DOMAIN]
+if HTTPS == 'https':
+    CSRF_TRUSTED_ORIGINS = [SITE_DOMAIN]
 
 
 # Application definition
