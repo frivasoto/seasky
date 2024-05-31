@@ -1347,12 +1347,10 @@ class ExportarContenedorExcelView(LoginRequiredMixin,View):
         ws['D11'] = "Peso Bruto Total"
         ws.merge_cells(start_row=11, start_column=6, end_row=11, end_column=7)
         ws['F11'] = "Total de Bultos"
-        ws.merge_cells(start_row=11, start_column=8, end_row=11, end_column=9)
+        ws.merge_cells(start_row=11, start_column=8, end_row=11, end_column=10)
         ws['H11'] = "Importe FOB"
-        ws.merge_cells(start_row=11, start_column=10, end_row=11, end_column=11)
-        ws['J11'] = f"Importe {contenedor.transporte}"
-        ws.merge_cells(start_row=11, start_column=12, end_row=11, end_column=13)
-        ws['L11'] = "Importe Total"
+        ws.merge_cells(start_row=11, start_column=11, end_row=11, end_column=13)
+        ws['K11'] = f"Importe {contenedor.transporte}"
         ws.merge_cells(start_row=13, start_column=2, end_row=14, end_column=13)
         ws['B13'] = "Productos del Contenedor"
         ws['B13'].alignment = Alignment(horizontal='center', vertical='center') 
@@ -1435,12 +1433,11 @@ class ExportarContenedorExcelView(LoginRequiredMixin,View):
         ws['D12'] = bruto_total
         ws.merge_cells(start_row=12, start_column=6, end_row=12, end_column=7)
         ws['F12'] = total_bultos
-        ws.merge_cells(start_row=12, start_column=8, end_row=12, end_column=9)
+        ws.merge_cells(start_row=12, start_column=8, end_row=12, end_column=10)
         ws['H12'] = importe_total
-        ws.merge_cells(start_row=12, start_column=10, end_row=12, end_column=11)
-        ws['J12'] = contenedor.flete + contenedor.seguro + importe_total
-        ws.merge_cells(start_row=12, start_column=12, end_row=12, end_column=13)
-        ws['L12'] = "calcular"
+        ws.merge_cells(start_row=12, start_column=11, end_row=12, end_column=13)
+        ws['K12'] = contenedor.flete + contenedor.seguro + importe_total
+        
 
         row_num_2 = row_num+1
         
