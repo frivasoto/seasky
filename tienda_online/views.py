@@ -5,7 +5,7 @@ from django.views.generic import View,TemplateView,ListView,UpdateView,CreateVie
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.paginator import Paginator
 
-from tienda_online.utils import render_to_pdf
+
 from .models import Configuracion, Producto, Puerto, Pais
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .form import *
