@@ -1,5 +1,5 @@
 from django.urls import *
-from tienda_online import views
+
 from tienda_online.views import *
 
 urlpatterns = [
@@ -45,6 +45,11 @@ urlpatterns = [
     path('unidad/nuevo/', UnidadDeMedidaCreateView.as_view(), name='crear_unidad'),
     path('unidad/actualizar/<int:pk>', UnidadDeMedidaUpdateView.as_view(), name='actualizar_unidad'),
     path('unidad/eliminar/<int:pk>', UnidadDeMedidaDeleteView.as_view(), name='eliminar_unidad'),
+
+    path('unidad_contenedor/', UnidadMedidaContenedorListView.as_view(), name='unidad_contenedor_listado'),
+    path('unidad_contenedor/nuevo/', UnidadMedidaContenedorCreateView.as_view(), name='crear_unidad_contenedor'),
+    path('unidad_contenedor/actualizar/<int:pk>', UnidadMedidaContenedorUpdateView.as_view(), name='actualizar_unidad_contenedor'),
+    path('unidad_contenedor/eliminar/<int:pk>', UnidadMedidaContenedorDeleteView.as_view(), name='eliminar_unidad_contenedor'),
     
     path('partida/', PartidaArancelariaListView.as_view(), name='partida_listado'),
     path('partida/nuevo/', PartidaArancelariaCreateView.as_view(), name='crear_partida'),

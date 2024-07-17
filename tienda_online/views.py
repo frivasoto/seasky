@@ -724,7 +724,100 @@ class UnidadDeMedidaDeleteView(LoginRequiredMixin,DeleteView):
         response = JsonResponse({'mensaje': mensaje, 'error': error})
         response.status_code = 201
         return redirect('unidad_listado')
-    
+
+
+""" CRUD unidad_contenedor """
+
+
+class UnidadMedidaContenedorListView(LoginRequiredMixin, ListView):
+    model = UnidadMedidaContenedor
+    form_class = UnidadMedidaContenedorForm
+    template_name = 'unidad_contenedor/lista_unidad_contenedor.html'
+    context_object_name = 'object_list'
+    paginate_by = int(Configuracion.objects.get(llave="paginado").valor)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get("q")
+        if query:
+            queryset = queryset.filter(nombre__icontains=query)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['q'] = self.request.GET.get("q", "")
+        breadcrumb = [
+            {'text': 'Inicio', 'url': '/home/'},
+            {'text': 'Unidad de Medida de Contenedor', 'url': '/unidad_contenedor/'},
+        ]
+        context['breadcrumb'] = breadcrumb
+        page_range = range(1, min(5, int(Configuracion.objects.get(llave="num_pages").valor)) + 1)
+        context['page_range'] = page_range
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(data=request.POST)
+        if form.is_valid():
+            form.save()
+            mensaje = f'{self.model.__name__} actualizado correctamente!'
+            error = 'No hay error!'
+            response = JsonResponse({'mensaje': mensaje, 'error': error})
+            response.status_code = 201
+            return response
+        else:
+            mensaje = f'{self.model.__name__} no se ha podido actualizar!'
+            error = form.errors
+            response = JsonResponse({'mensaje': mensaje, 'error': error})
+            response.status_code = 400
+            return response
+
+
+class UnidadMedidaContenedorCreateView(LoginRequiredMixin, CreateView):
+    model = UnidadMedidaContenedor
+    form_class = UnidadMedidaContenedorForm
+    template_name = 'unidad_contenedor/crear_unidad_contenedor.html'
+    success_url = reverse_lazy('unidad_contenedor_listado')
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            mensaje = f'{self.model.__name__} registrado correctamente!'
+            error = 'No hay error!'
+            response = JsonResponse({'mensaje': mensaje, 'error': error})
+            response.status_code = 201
+            return redirect('unidad_contenedor_listado')
+        else:
+            mensaje = f'{self.model.__name__} no se ha podido registrar!'
+            error = form.errors
+            response = JsonResponse({'mensaje': mensaje, 'error': error})
+            response.status_code = 400
+            return response
+
+
+class UnidadMedidaContenedorUpdateView(LoginRequiredMixin, UpdateView):
+    model = UnidadMedidaContenedor
+    template_name = 'unidad_contenedor/actualizar_unidad_contenedor.html'
+    form_class = UnidadMedidaContenedorForm
+    success_url = reverse_lazy('unidad_contenedor_listado')
+
+
+class UnidadMedidaContenedorDeleteView(LoginRequiredMixin, DeleteView):
+    model = UnidadMedidaContenedor
+    template_name = 'unidad_contenedor/eliminar_unidad_contenedor.html'
+    success_url = reverse_lazy('unidad_contenedor_listado')
+
+    def delete(self, request, pk, *args, **kwargs):
+        puerto = self.get_object()
+        puerto.estado = False
+        puerto.save()
+        mensaje = f'{self.model.__name__} eliminado correctamente!'
+        error = 'No hay error!'
+        response = JsonResponse({'mensaje': mensaje, 'error': error})
+        response.status_code = 201
+        return redirect('unidad_contenedor_listado')
+
+
 """ CRUD partida """  
 class PartidaArancelariaListView(LoginRequiredMixin, ListView):
     model = PartidaArancelaria

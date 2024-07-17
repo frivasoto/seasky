@@ -7,17 +7,21 @@
         <form action="{% url 'actualizar_contenedor' object.id %}" method="post" enctype="multipart/form-data" class="m-4">
             {% csrf_token %}
             <div class="row">
-                <div class="col-md-4 mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="id_identificador" class="form-label">Número de Contenedor</label>
                     {{ form.identificador }}
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="id_identificador" class="form-label">Número de Sello</label>
                     {{ form.sello }}
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="id_identificador" class="form-label">HBL</label>
                     {{ form.hbl }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="id_unidad" class="form-label">Unidad de Medida</label>
+                    {{ form.unidad }}
                 </div>
             </div>
             <div class="row">

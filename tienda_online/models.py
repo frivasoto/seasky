@@ -18,6 +18,18 @@ class UnidadDeMedida(models.Model):
     def __str__(self):
         return self.nombre
 
+class UnidadMedidaContenedor(models.Model):
+    nombre = models.CharField(max_length=50,)
+    sigla = models.CharField(max_length=5,)
+
+    class Meta:
+        verbose_name = 'UnidadMedidaContenedor'
+        verbose_name_plural = 'UnidadMedidaContenedores'
+        ordering = ['nombre']
+
+    def __str__(self):
+        return self.nombre + ' ' + '('+self.sigla+')'
+
 class Producto(models.Model):
     referencia = models.CharField(max_length=10, unique=True, editable=False)  
     partida_arancelaria = models.ForeignKey(PartidaArancelaria, on_delete=models.CASCADE)
@@ -169,6 +181,7 @@ class Contenedor(models.Model):
     identificador = models.CharField(max_length=500)
     sello = models.CharField(max_length=100)
     hbl = models.CharField(max_length=100, default=None, blank=True, null=True)
+    unidad = models.ForeignKey(UnidadMedidaContenedor, null=True, on_delete=models.SET_NULL)
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE,)
     importadora = models.ForeignKey(Importadora, on_delete=models.CASCADE,)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE,)

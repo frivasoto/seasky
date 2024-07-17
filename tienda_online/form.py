@@ -15,6 +15,15 @@ class UnidadDeMedidaForm(forms.ModelForm):
         fields = ['nombre']
         widgets = {'nombre': forms.TextInput(attrs={'class': 'form-control'})}
 
+class UnidadMedidaContenedorForm(forms.ModelForm):
+    class Meta:
+        model = UnidadMedidaContenedor
+        fields = ['nombre', 'sigla']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'sigla': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
 class ProductoForm(forms.ModelForm):
     unidad_medida = forms.ModelChoiceField(queryset=UnidadDeMedida.objects.all(), empty_label=None, widget=forms.Select(attrs={'class': 'form-control'}))
     partida_arancelaria = forms.ModelChoiceField(queryset=PartidaArancelaria.objects.all(), empty_label=None, widget=forms.Select(attrs={'class': 'form-control'}))
@@ -112,10 +121,11 @@ class ContenedorForm(forms.ModelForm):
     transporte = forms.ModelChoiceField(queryset=Transporte.objects.all(), empty_label=None, widget=forms.Select(attrs={'class': 'form-control'}))
     puerto_origen = forms.ModelChoiceField(queryset=Puerto.objects.all(), empty_label=None, widget=forms.Select(attrs={'class': 'form-control'}))
     puerto_destino = forms.ModelChoiceField(queryset=Puerto.objects.all(), empty_label=None, widget=forms.Select(attrs={'class': 'form-control'}))
+    unidad = forms.ModelChoiceField(queryset=UnidadMedidaContenedor.objects.all(), empty_label=None, widget=forms.Select(attrs={'class': 'form-control'}))
     
     class Meta:
         model = Contenedor
-        fields = ['identificador', 'sello','hbl', 'empresa', 'importadora', 'proveedor', 'cliente','transporte', 'puerto_origen', 'puerto_destino','cubicaje', 'flete', 'seguro','estado' ]
+        fields = ['identificador', 'sello','hbl', 'empresa', 'importadora', 'proveedor', 'cliente','transporte', 'puerto_origen', 'puerto_destino', 'unidad', 'cubicaje', 'flete', 'seguro','estado' ]
         widgets = {
             'identificador': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'id de contenedor..'}), 
             'sello': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '# de sellos..'}),

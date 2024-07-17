@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load custom_filters %}
 {% block tittle %}
   Detalles del Contenedor
 {% endblock %}
@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-6">
                   <div class="text-end">
-                    <h3 class="text-dark mt-1"><span>{{total_bruto|floatformat:2}}</span> kg</h3>
+                    <h3 class="text-dark mt-1"><span>{{total_bruto|custom_format}}</span> {{ contenedor.unidad.sigla }}</h3>
                     <p class="text-muted mb-1 text-truncate">Peso Bruto Total</p>
                   </div>
                 </div>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-6">
                   <div class="text-end">
-                    <h3 class="text-dark mt-1"><span>{{total_neto|floatformat:2}}</span> kg</h3>
+                    <h3 class="text-dark mt-1"><span>{{total_neto|custom_format}}</span> {{ contenedor.unidad.sigla }}</h3>
                     <p class="text-muted mb-1 text-truncate">Peso Neto Total</p>
                   </div>
                 </div>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="col-6">
                   <div class="text-end">
-                    <h3 class="text-dark mt-1">$ <span>{{total_general|floatformat:2}}</span></h3>
+                    <h3 class="text-dark mt-1">$ <span>{{total_general|custom_format}}</span></h3>
                     <p class="text-muted mb-1 text-truncate">Importe Total</p>
                   </div>
                 </div>
@@ -200,8 +200,8 @@
                           <th>UM</th>
                           <th>Cantidad</th>
                           <th>Precio</th>
-                          <th>Bruto kg</th>
-                          <th>Neto kg</th>
+                          <th>Bruto {{ contenedor.unidad.sigla }}</th>
+                          <th>Neto {{ contenedor.unidad.sigla }}</th>
                           <th>Bultos</th>
                           <th style="width: 82px;">Acción</th>
                         </tr>
@@ -240,8 +240,8 @@
                             <th>UM</th>
                             <th>Cantidad</th>
                             <th>Precio</th>
-                            <th>Bruto kg</th>
-                            <th>Neto kg</th>
+                            <th>Bruto {{ contenedor.unidad.sigla }}</th>
+                            <th>Neto {{ contenedor.unidad.sigla }}</th>
                             <th>Bultos</th>
                             <th style="width: 82px;">Acción</th>
                           </tr>
