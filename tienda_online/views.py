@@ -1274,8 +1274,8 @@ class Declaracion(LoginRequiredMixin,View):
         contenedor_id = kwargs.get('pk')
         contenedor = Contenedor.objects.get(pk=contenedor_id)
         nombre_declaracion = f"Declaración jurada_{contenedor.factura}_{contenedor.cliente}.pdf"
-        logo_url = request.build_absolute_uri(contenedor.empresa.logo_empresa.url)
-        firma_url = request.build_absolute_uri(contenedor.empresa.firma_empresa.url)
+        #logo_url = request.build_absolute_uri(contenedor.empresa.logo_empresa.url)
+        #firma_url = request.build_absolute_uri(contenedor.empresa.firma_empresa.url)
         
         domain = settings.SITE_DOMAIN
         http = settings.HTTPS
