@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tienda_online',
-    'almacenes',
+    
 ]
 
 MIDDLEWARE = [
@@ -133,7 +133,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS =[
         os.path.join(BASE_DIR, 'tienda_online/static'),
-        os.path.join(BASE_DIR, 'almacenes/static'),
+       
     ] 
 
 LOGIN_URL = '/'
@@ -143,7 +143,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = [
     os.path.join(BASE_DIR, 'tienda_online/media'),
-    os.path.join(BASE_DIR, 'almacenes/media'),
+   
 ]
 
 
