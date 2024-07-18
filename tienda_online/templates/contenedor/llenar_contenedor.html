@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-6">
                   <div class="text-end">
-                    <h3 class="text-dark mt-1"><span data-plugin="counterup">{{total_bruto}}</span> kg</h3>
+                    <h3 class="text-dark mt-1"><span>{{total_bruto|floatformat:2}}</span> kg</h3>
                     <p class="text-muted mb-1 text-truncate">Peso Bruto Total</p>
                   </div>
                 </div>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-6">
                   <div class="text-end">
-                    <h3 class="text-dark mt-1"><span data-plugin="counterup">{{total_neto}}</span> kg</h3>
+                    <h3 class="text-dark mt-1"><span>{{total_neto|floatformat:2}}</span> kg</h3>
                     <p class="text-muted mb-1 text-truncate">Peso Neto Total</p>
                   </div>
                 </div>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="col-6">
                   <div class="text-end">
-                    <h3 class="text-dark mt-1">$ <span data-plugin="counterup">{{total_importe}}</span></h3>
+                    <h3 class="text-dark mt-1">$ <span>{{total_general|floatformat:2}}</span></h3>
                     <p class="text-muted mb-1 text-truncate">Importe Total</p>
                   </div>
                 </div>
