@@ -130,21 +130,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS =[
-        os.path.join(BASE_DIR, 'tienda_online/static'),
-       
-    ] 
+STATIC_ROOT = os.path.join(BASE_DIR, 'tienda_online/staticfiles')
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/contenedor/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = [
-    os.path.join(BASE_DIR, 'tienda_online/media'),
-   
-]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'tienda_online/media')
 
 
 # Default primary key field type
