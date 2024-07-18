@@ -106,8 +106,8 @@ class Cliente(models.Model):
         
 class Empresa(models.Model):
     nombre_empresa = models.CharField(max_length=30, unique=True)
-    logo_empresa = models.ImageField(upload_to='logo_empresa/',blank=True,null=True)
-    firma_empresa = models.ImageField(upload_to='firma_empresa/',blank=True,null=True)
+    logo_empresa = models.ImageField(upload_to='logo_empresa/',blank=True,null=True, default='defaults/default.png')
+    firma_empresa = models.ImageField(upload_to='firma_empresa/',blank=True,null=True,default='defaults/default.png')
     direccion_empresa = models.CharField(max_length=300)
     forma_pago = models.TextField(max_length=150)
     cod_camara = models.CharField(max_length=10)

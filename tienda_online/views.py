@@ -629,7 +629,6 @@ class ImportadoraDeleteView(LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy('importadora_listado')
 
     def delete(self, request, pk, *args, **kwargs):
-        
         puerto = self.get_object()
         puerto.estado = False
         puerto.save()
@@ -1210,12 +1209,16 @@ class Factura(LoginRequiredMixin,View):
         contenedor_id = kwargs.get('pk')
         contenedor = Contenedor.objects.get(pk=contenedor_id)
         nombre_factura = f"Factura_{contenedor.factura}_{contenedor.cliente}.pdf"
+
+        logo_url = request.build_absolute_uri(contenedor.empresa.logo_empresa.url)
+        firma_url = request.build_absolute_uri(contenedor.empresa.firma_empresa.url)
         
-        domain = settings.SITE_DOMAIN
-        http = settings.HTTPS
-        logo_url = f"{http}://{domain}{contenedor.empresa.logo_empresa.url}"
-        firma_url = f"{http}://{domain}{contenedor.empresa.firma_empresa.url}"
-        
+        #domain = settings.SITE_DOMAIN
+        #http = settings.HTTPS
+        #logo_url = f"{http}://{domain}{contenedor.empresa.logo_empresa.url}"
+        #firma_url = f"{http}://{domain}{contenedor.empresa.firma_empresa.url}"
+
+
         productos_contenedor = []
         total_bultos = 0
         total_bruto = 0
@@ -1223,7 +1226,7 @@ class Factura(LoginRequiredMixin,View):
         total_importe = 0
         total_general = 0
         for item in contenedor.items.all():
-            importe = item.cantidad * item.precio  # Calcula el importe de cada producto
+            importe = item.cantidad * item.precio
             productos_contenedor.append({
                 'producto': item.productos,
                 'cantidad': item.cantidad,
@@ -1274,13 +1277,13 @@ class Declaracion(LoginRequiredMixin,View):
         contenedor_id = kwargs.get('pk')
         contenedor = Contenedor.objects.get(pk=contenedor_id)
         nombre_declaracion = f"Declaración jurada_{contenedor.factura}_{contenedor.cliente}.pdf"
-        #logo_url = request.build_absolute_uri(contenedor.empresa.logo_empresa.url)
-        #firma_url = request.build_absolute_uri(contenedor.empresa.firma_empresa.url)
+        logo_url = request.build_absolute_uri(contenedor.empresa.logo_empresa.url)
+        firma_url = request.build_absolute_uri(contenedor.empresa.firma_empresa.url)
         
-        domain = settings.SITE_DOMAIN
-        http = settings.HTTPS
-        logo_url = f"{http}://{domain}{contenedor.empresa.logo_empresa.url}"
-        firma_url = f"{http}://{domain}{contenedor.empresa.firma_empresa.url}"
+        #domain = settings.SITE_DOMAIN
+        #http = settings.HTTPS
+        #logo_url = f"{http}://{domain}{contenedor.empresa.logo_empresa.url}"
+        #firma_url = f"{http}://{domain}{contenedor.empresa.firma_empresa.url}"
         
         total_importe = sum(item.cantidad * item.precio for item in contenedor.items.all())
         total_general = total_importe + contenedor.flete + contenedor.seguro
