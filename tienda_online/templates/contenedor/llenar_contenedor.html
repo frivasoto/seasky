@@ -97,16 +97,16 @@
       <!-- Start Content -->
       <div class="container-fluid">
         <div class="row">
-          <div class="col-xl-3">
+          <div class="col-xl-2">
             <div class="row">
               <div class="col">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title"><strong>Número de factura</strong></h4>
+                    <h4 class="card-title"><strong>No. de factura</strong></h4>
                     <p>{{ contenedor.factura }}</p>
-                    <h4 class="card-title"><strong>Número de contenedor</strong></h4>
+                    <h4 class="card-title"><strong>No. de contenedor</strong></h4>
                     <p>{{ contenedor.identificador }}</p>
-                    <h4 class="card-title"><strong>Numero de Sello</strong></h4>
+                    <h4 class="card-title"><strong>No. de Sello</strong></h4>
                     <p>{{ contenedor.sello }}</p>
                     <h4 class="card-title"><strong>HBL</strong></h4>
                     <p>{{ contenedor.hbl }}</p>
@@ -141,7 +141,7 @@
           </div> <!-- end col -->
 
           <!-- task details -->
-          <div class="col-xl-9">
+          <div class="col-xl-10">
             <div class="card">
               <div class="card-body">
                 <div class="row justify-content-between mb-2">
@@ -255,8 +255,8 @@
                               <td>{{ producto.productos.unidad_medida }}</td>
                               <td>{{ producto.cantidad }}</td>
                               <td>{{ producto.precio }}</td>
-                              <td>{{ producto.bruto_kg }}</td>
-                              <td>{{ producto.neto_kg }}</td>
+                              <td>{{ producto.bruto_kg|custom_format }}</td>
+                              <td>{{ producto.neto_kg|custom_format }}</td>
                               <td>{{ producto.bultos }}</td>
                               <td>
                                 <button id="BotonEditar" onclick="abrir_edicion('{% url 'update_producto' producto.id %}')" style="border: none;" class="btn btn-outline-blue rounded-pill waves-effect waves-light"><i class="mdi mdi-square-edit-outline"></i></button>

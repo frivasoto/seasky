@@ -4,6 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import View,TemplateView,ListView,UpdateView,CreateView,DeleteView,DetailView, RedirectView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.paginator import Paginator
+from .templatetags import custom_filters
 
 
 from .models import Configuracion, Producto, Puerto, Pais
@@ -1303,13 +1304,13 @@ class Factura(LoginRequiredMixin,View):
         contenedor = Contenedor.objects.get(pk=contenedor_id)
         nombre_factura = f"Factura_{contenedor.factura}_{contenedor.cliente}.pdf"
 
-        logo_url = request.build_absolute_uri(contenedor.empresa.logo_empresa.url)
-        firma_url = request.build_absolute_uri(contenedor.empresa.firma_empresa.url)
+        #logo_url = request.build_absolute_uri(contenedor.empresa.logo_empresa.url)
+        #firma_url = request.build_absolute_uri(contenedor.empresa.firma_empresa.url)
         
-        #domain = settings.SITE_DOMAIN
-        #http = settings.HTTPS
-        #logo_url = f"{http}://{domain}{contenedor.empresa.logo_empresa.url}"
-        #firma_url = f"{http}://{domain}{contenedor.empresa.firma_empresa.url}"
+        domain = settings.SITE_DOMAIN
+        http = settings.HTTPS
+        logo_url = f"{http}://{domain}{contenedor.empresa.logo_empresa.url}"
+        firma_url = f"{http}://{domain}{contenedor.empresa.firma_empresa.url}"
 
 
         productos_contenedor = []
@@ -1370,13 +1371,13 @@ class Declaracion(LoginRequiredMixin,View):
         contenedor_id = kwargs.get('pk')
         contenedor = Contenedor.objects.get(pk=contenedor_id)
         nombre_declaracion = f"Declaración jurada_{contenedor.factura}_{contenedor.cliente}.pdf"
-        logo_url = request.build_absolute_uri(contenedor.empresa.logo_empresa.url)
-        firma_url = request.build_absolute_uri(contenedor.empresa.firma_empresa.url)
+        #logo_url = request.build_absolute_uri(contenedor.empresa.logo_empresa.url)
+        #firma_url = request.build_absolute_uri(contenedor.empresa.firma_empresa.url)
         
-        #domain = settings.SITE_DOMAIN
-        #http = settings.HTTPS
-        #logo_url = f"{http}://{domain}{contenedor.empresa.logo_empresa.url}"
-        #firma_url = f"{http}://{domain}{contenedor.empresa.firma_empresa.url}"
+        domain = settings.SITE_DOMAIN
+        http = settings.HTTPS
+        logo_url = f"{http}://{domain}{contenedor.empresa.logo_empresa.url}"
+        firma_url = f"{http}://{domain}{contenedor.empresa.firma_empresa.url}"
         
         total_importe = sum(item.cantidad * item.precio for item in contenedor.items.all())
         total_general = total_importe + contenedor.flete + contenedor.seguro
@@ -1438,9 +1439,9 @@ class ExportarContenedorExcelView(LoginRequiredMixin,View):
         ws['B10'] = ""
 
         ws.merge_cells(start_row=11, start_column=2, end_row=11, end_column=3)
-        ws['B11'] = "Peso Neto Total"
+        ws['B11'] = f"Peso Neto Total {contenedor.unidad.sigla}"
         ws.merge_cells(start_row=11, start_column=4, end_row=11, end_column=5)
-        ws['D11'] = "Peso Bruto Total"
+        ws['D11'] = f"Peso Bruto Total {contenedor.unidad.sigla}"
         ws.merge_cells(start_row=11, start_column=6, end_row=11, end_column=7)
         ws['F11'] = "Total de Bultos"
         ws.merge_cells(start_row=11, start_column=8, end_row=11, end_column=10)
@@ -1510,7 +1511,7 @@ class ExportarContenedorExcelView(LoginRequiredMixin,View):
             ws.cell(row=row_num, column=7).value = item.contenedor.puerto_origen.pais_puerto.sigla
             ws.cell(row=row_num, column=8).value = item.cantidad
             ws.cell(row=row_num, column=9).value = item.precio
-            ws.cell(row=row_num, column=10).value = item.cantidad * item.precio  
+            ws.cell(row=row_num, column=10).value = item.cantidad * item.precio
             ws.cell(row=row_num, column=11).value = item.neto_kg
             ws.cell(row=row_num, column=12).value = item.bruto_kg
             ws.cell(row=row_num, column=13).value = item.bultos
@@ -1548,7 +1549,6 @@ class ExportarContenedorExcelView(LoginRequiredMixin,View):
         ws.cell(row=row_num_2, column=12).border = Border(left=Side(border_style='thin'), right=Side(border_style='thin'), top=Side(border_style='thin'), bottom=Side(border_style='thin'))
         ws.cell(row=row_num_2, column=13).border = Border(left=Side(border_style='thin'), right=Side(border_style='thin'), top=Side(border_style='thin'), bottom=Side(border_style='thin'))
 
-        # Seguro
         row_num_3 = row_num_2 + 1
         ws.merge_cells(start_row=row_num_3, start_column=11, end_row=row_num_3, end_column=11)
         ws.cell(row=row_num_3, column=11).value = "Seguro"
@@ -1561,7 +1561,6 @@ class ExportarContenedorExcelView(LoginRequiredMixin,View):
         ws.cell(row=row_num_3, column=12).border = Border(left=Side(border_style='thin'), right=Side(border_style='thin'), top=Side(border_style='thin'), bottom=Side(border_style='thin'))
         ws.cell(row=row_num_3, column=13).border = Border(left=Side(border_style='thin'), right=Side(border_style='thin'), top=Side(border_style='thin'), bottom=Side(border_style='thin'))
 
-        # Importe Total
         row_num_4 = row_num_3 + 1
         ws.merge_cells(start_row=row_num_4, start_column=11, end_row=row_num_4, end_column=11)
         ws.cell(row=row_num_4, column=11).value = f"Importe Total {contenedor.transporte}"

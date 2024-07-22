@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +62,7 @@
             <p><strong>Importadora:</strong> {{contenedor.importadora.nombre_importadora}}</p>
             <p><strong>Nr. Contrato:</strong> {{contenedor.importadora.contrato}}</p>
             <p><strong>Dirección:</strong> {{contenedor.importadora.direccion_importadora}}</p>
-            <p><strong>Importe total en USD:</strong> {{total_general}} USD</p>
+            <p><strong>Importe total en USD:</strong> {{total_general|custom_format}} USD</p>
             <p><strong>Contenedor(es):</strong> {{contenedor.identificador}}</p>
             <p><strong>Sello(s):</strong> {{contenedor.sello}}</p>
             <p><strong>Puerto Origen:</strong> {{contenedor.puerto_origen.nombre_puerto}}</p>

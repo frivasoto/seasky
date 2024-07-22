@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -141,10 +142,10 @@
                 <td colspan="3" style="text-align: justify; padding: 2px;">{{ producto.producto.descripcion }}</td>
                 <td style="text-align: center;">{{ producto.producto.unidad_medida }}</td>
                 <td style="text-align: center;">{{ producto.cantidad }}</td>
-                <td style="text-align: center;">{{ producto.precio }}</td>
-                <td style="text-align: center;">$ {{ producto.importe }}</td>
-                <td style="text-align: center;">{{ producto.bruto_kg }} kg</td>
-                <td style="text-align: center;">{{ producto.neto_kg }} kg</td>
+                <td style="text-align: center;">{{ producto.precio|custom_format}}</td>
+                <td style="text-align: center;">$ {{ producto.importe| custom_format}}</td>
+                <td style="text-align: center;">{{ producto.bruto_kg|custom_format }} {{ contenedor.unidad.sigla }}</td>
+                <td style="text-align: center;">{{ producto.neto_kg|custom_format }} {{ contenedor.unidad.sigla }}</td>
                 <td style="text-align: center;">{{ producto.bultos }}</td>
               </tr>
             {% endfor %}
@@ -162,13 +163,13 @@
               <th colspan="1">Total de Bultos</th>
             </tr>
             <tr style="text-align: center;">
-              <td colspan="2">{{ contenedor.cubicaje }} m³</td>
+              <td colspan="2">{{ contenedor.cubicaje|custom_format }} m³</td>
               <td colspan="2">{{ contenedor.puerto_origen.pais_puerto }}</td>
               <td colspan="2">{{ contenedor.puerto_origen.nombre_puerto }}</td>
               <td colspan="2">{{ contenedor.puerto_destino.nombre_puerto }}</td>
-              <td colspan="1">$ {{ total_importe }}</td>
-              <td colspan="1">{{ total_bruto }} kg</td>
-              <td colspan="1">{{ total_neto }} kg</td>
+              <td colspan="1">$ {{ total_importe|custom_format }}</td>
+              <td colspan="1">{{ total_bruto|custom_format }} {{ contenedor.unidad.sigla }}</td>
+              <td colspan="1">{{ total_neto|custom_format}} {{ contenedor.unidad.sigla }}</td>
               <td colspan="1">{{ total_bultos }}</td>
             </tr>
           </tbody>
@@ -179,17 +180,17 @@
             <tr>
               <td colspan="8"></td>
               <th colspan="2" style="text-align: right;">Costo de Flete:</th>
-              <td colspan="2" style="text-align: center;">{{ contenedor.flete }} USD</td>
+              <td colspan="2" style="text-align: center;">{{ contenedor.flete|custom_format }} USD</td>
             </tr>
             <tr>
               <td colspan="8"></td>
               <th colspan="2" style="text-align: right;">Seguro:</th>
-              <td colspan="2" style="text-align: center;">{{ contenedor.seguro }} USD</td>
+              <td colspan="2" style="text-align: center;">{{ contenedor.seguro|custom_format }} USD</td>
             </tr>
             <tr>
               <td colspan="8"></td>
               <th colspan="2" style="text-align: right;">Importe Total {{ contenedor.transporte }}:</th>
-              <td colspan="2" style="text-align: center;">{{ total_general }} USD</td>
+              <td colspan="2" style="text-align: center;">{{ total_general|custom_format }} USD</td>
             </tr>
           </tfoot>
         </table>
